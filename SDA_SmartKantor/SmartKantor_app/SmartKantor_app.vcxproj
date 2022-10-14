@@ -142,7 +142,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\UserLib\Currency.cpp" />
+    <ClCompile Include="..\UserLib\DisplayMenu.cpp" />
     <ClCompile Include="Main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\UserLib\Converter.h" />
+    <ClInclude Include="..\UserLib\Currency.h" />
+    <ClInclude Include="..\UserLib\DisplayMenu.hpp" />
+    <ClInclude Include="..\UserLib\TempRatesRetriever.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
