@@ -1,0 +1,40 @@
+{
+    "Currency": [
+        {
+            "buyPrice": 4.8454999923706055,
+            "codeName": "EUR",
+            "currencyTarget": "Euro",
+            "sellPrice": 4.875500202178955
+        },
+        {
+            "buyPrice": 4.976200103759766,
+            "codeName": "USD",
+            "currencyTarget": "Dollar",
+            "sellPrice": 5.006199836730957
+        },
+        {
+            "buyPrice": 5.048500061035156,
+            "codeName": "CHF",
+            "currencyTarget": "Frank szwajcarski",
+            "sellPrice": 5.048500061035156
+        },
+        {
+            "buyPrice": 4.5,
+            "codeName": "PLN",
+            "currencyTarget": "Polski zloty",
+            "sellPrice": 4.300000190734863
+        },
+        {
+            "buyPrice": 3.301300048828125,
+            "codeName": "JPY",
+            "currencyTarget": "Jen japonski",
+            "sellPrice": 3.3433001041412354
+        },
+        {
+            "buyPrice": 0.45899999141693115,
+            "codeName": "NOK",
+            "currencyTarget": "Korona norweska",
+            "sellPrice": 5.554200172424316
+        }
+    ]
+}
