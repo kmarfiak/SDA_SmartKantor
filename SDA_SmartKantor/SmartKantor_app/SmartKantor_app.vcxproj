@@ -146,11 +146,13 @@
     <ClInclude Include="Currency.h" />
     <ClInclude Include="DisplayMenu.hpp" />
     <ClInclude Include="TempRatesRetriever.h" />
+    <ClInclude Include="User.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Currency.cpp" />
     <ClCompile Include="DisplayMenu.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="User.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
