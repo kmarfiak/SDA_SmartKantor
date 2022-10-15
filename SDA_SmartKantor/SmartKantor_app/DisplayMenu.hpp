@@ -2,23 +2,9 @@
 #include <iostream>
 #include <string>
 #include "Converter.h"
+#include "User.hpp"
 
-class User  // ta klasy sa tylko na potrzeby dzialania menu,  do usuniecia jak powstanie wlasciwa klasa User
-{
 
-    Converter converter1;
-public:
-
-    float buy(Currency::CurrencyCode currCodeSource, float amount)
-    {
-        float value = converter1.calculateBuy(amount, currCodeSource);
-        return value;
-    }
-    float sell(Currency::CurrencyCode currCodeSource, float amount) {
-        float value = converter1.calculateSell(amount, currCodeSource);
-        return value;
-    }
-};
 
 class DisplayMenu
 {
