@@ -5,20 +5,24 @@
 
 	class Currency
 	{
-		std::string currencyName;
+		std::string currencyTarget;
 		std::string codeName;
 		float buyPrice;
 		float sellPrice;
-		std::string baseCurrency = "PLN";//czyli PLN
+		std::string currencySource = "PLN";//czyli PLN
 	public:
-		Currency(std::string newCurrencyName, std::string newCodeName, float newBuyPrice, float newSellPrice);
+		Currency(std::string currencyTarget, std::string codeName, float buyPrice, float sellPrice);
 		Currency();
+		enum class CurrencyCode
+		{
+			EUR, USD, GBP, CHF, PLN
+		};
 		float getBuyPrice();
 		void setBuyPrice(float newBuyPrice);
 		float getSellPrice();
 		void setSellPrice(float newSellPrice);
-		std::string getBaseCurrency();
-		void setBaseCurrency(std::string newBaseCurrency);
+		std::string getCurrencySource();
+		void setCurrencySource(std::string currencySource);
 		//void to_json(json& j, const Currency& s);
 		//void from_json(const json& j, Currency& s);
 	};

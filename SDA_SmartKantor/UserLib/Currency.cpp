@@ -1,30 +1,43 @@
 #include <iostream>
 #include <fstream>
+#include "pch.h"
 #include "Currency.h"
-#include "json/json.hpp"
+//#include "json/json.hpp"
 
+
+Currency::Currency(std::string currencyTarget, std::string codeName, float buyPrice, float sellPrice)
+{
+	this->currencyTarget = currencyTarget;
+	this->codeName = codeName;
+	this->buyPrice = buyPrice;
+	this->sellPrice = sellPrice;
+}
+
+Currency::Currency()
+{
+}
 
 float Currency::getBuyPrice()
 {
 	return buyPrice;
 }
-void Currency::setBuyPrice(float newBuyPrice)
+void Currency::setBuyPrice(float buyPrice)
 {
-	buyPrice = newBuyPrice;
+	this->buyPrice = buyPrice;
 }
 float Currency::getSellPrice()
 {
 	return sellPrice;
 }
-void Currency::setSellPrice(float newSellPrice)
+void Currency::setSellPrice(float sellPrice)
 {
-	sellPrice = newSellPrice;
+	this->sellPrice = sellPrice;
 }
-std::string Currency::getBaseCurrency()
+std::string Currency::getCurrencySource()
 {
-	return baseCurrency;
+	return currencySource;
 }
-void Currency::setBaseCurrency(std::string newBaseCurrency)
+void Currency::setCurrencySource(std::string currencySource)
 {
-	baseCurrency = newBaseCurrency;
+	this->currencySource = currencySource;
 }
