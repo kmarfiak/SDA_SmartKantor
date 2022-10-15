@@ -116,13 +116,13 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\ME\SDA&amp;Ericsson\projekty\CPP_Programowanie\Projekt_końcowy\SDA_SmartKantor\SDA_SmartKantor\ChangeColour;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\ME\SDA&amp;Ericsson\projekty\CPP_Programowanie\Projekt_końcowy\SDA_SmartKantor\SDA_SmartKantor\tabulate;C:\ME\SDA&amp;Ericsson\projekty\CPP_Programowanie\Projekt_końcowy\SDA_SmartKantor\SDA_SmartKantor\json;$(SolutionDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>ChangeColour.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:\ME\SDA&amp;Ericsson\projekty\CPP_Programowanie\Projekt_końcowy\SDA_SmartKantor\SDA_SmartKantor\x64\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir);$(ProjectDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -142,7 +142,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Main.cpp" />
+    <ClInclude Include="..\..\..\..\CPP_Zaawansowane_Zadania\CPP_Zaawansowany\Zadania_Projects\JSON_kantor\json\json.hpp" />
+    <ClInclude Include="..\..\..\..\CPP_Zaawansowane_Zadania\CPP_Zaawansowany\Zadania_Projects\JSON_kantor\tabulate\tabulate.hpp" />
+    <ClInclude Include="..\..\..\..\CPP_Zaawansowane_Zadania\CPP_Zaawansowany\Zadania_Projects\JSON_kantor\Waluty.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\..\CPP_Zaawansowane_Zadania\CPP_Zaawansowany\Zadania_Projects\JSON_kantor\JSON_kantor.cpp" />
+    <ClCompile Include="..\..\..\..\CPP_Zaawansowane_Zadania\CPP_Zaawansowany\Zadania_Projects\JSON_kantor\Waluty.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

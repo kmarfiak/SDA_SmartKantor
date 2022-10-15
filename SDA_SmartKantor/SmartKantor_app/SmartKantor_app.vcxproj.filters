@@ -15,7 +15,21 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Main.cpp">
+    <ClInclude Include="..\..\..\..\CPP_Zaawansowane_Zadania\CPP_Zaawansowany\Zadania_Projects\JSON_kantor\tabulate\tabulate.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\CPP_Zaawansowane_Zadania\CPP_Zaawansowany\Zadania_Projects\JSON_kantor\json\json.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\CPP_Zaawansowane_Zadania\CPP_Zaawansowany\Zadania_Projects\JSON_kantor\Waluty.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\..\CPP_Zaawansowane_Zadania\CPP_Zaawansowany\Zadania_Projects\JSON_kantor\Waluty.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\CPP_Zaawansowane_Zadania\CPP_Zaawansowany\Zadania_Projects\JSON_kantor\JSON_kantor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
