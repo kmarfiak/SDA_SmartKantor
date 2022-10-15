@@ -116,13 +116,13 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\kasia\source\ProjektKoncowySDA\SDA_SmartKantor\SDA_SmartKantor\UserLib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir);$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Users\kasia\source\ProjektKoncowySDA\SDA_SmartKantor\SDA_SmartKantor\x64\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>UserLib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -142,15 +142,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\UserLib\Currency.cpp" />
-    <ClCompile Include="..\UserLib\DisplayMenu.cpp" />
-    <ClCompile Include="Main.cpp" />
+    <ClInclude Include="Converter.h" />
+    <ClInclude Include="Currency.h" />
+    <ClInclude Include="DisplayMenu.hpp" />
+    <ClInclude Include="TempRatesRetriever.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\UserLib\Converter.h" />
-    <ClInclude Include="..\UserLib\Currency.h" />
-    <ClInclude Include="..\UserLib\DisplayMenu.hpp" />
-    <ClInclude Include="..\UserLib\TempRatesRetriever.h" />
+    <ClCompile Include="Currency.cpp" />
+    <ClCompile Include="DisplayMenu.cpp" />
+    <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
