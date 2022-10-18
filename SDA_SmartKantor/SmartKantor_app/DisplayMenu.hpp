@@ -18,3 +18,5 @@ public:
 };
 
 std::ostream& operator<< (std::ostream& os, Currency::CurrencyCode currCode);
+
+std::string operator+ (std::string str, Currency::CurrencyCode currCode);

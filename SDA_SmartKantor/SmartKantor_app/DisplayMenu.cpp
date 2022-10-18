@@ -24,10 +24,12 @@ Currency::CurrencyCode DisplayMenu::changeIntToCurrCode(int intToChange)
 void DisplayMenu::subMenu(std::string operationType)
 {
     int currencyTarget = 0;
+    std::string lastDisplayMessage = "";
+
     std::map<Currency::CurrencyCode, Currency>& ratesMap = _userRef.getRates();
     do
     {
-        // system("cls");
+        system("cls");
         std::cout << "Jaka walute chcesz " << operationType << "?" << std::endl;
         std::cout << std::endl;
         
@@ -38,11 +40,18 @@ void DisplayMenu::subMenu(std::string operationType)
             ++counter;
         }
 
-        std::cout << "0 - Wyjdz" << std::endl;
-        std::cout << std::endl;
+        std::cout << "0 - Wyjdz" << std::endl << std::endl;
+
+        std::cout << lastDisplayMessage << std::endl << std::endl;
 
         std::cout << "Co chcesz zrobic?: ";
         std::cin >> currencyTarget;
+
+        if (currencyTarget < 0 || currencyTarget > (counter -1))
+        {
+            lastDisplayMessage = "Wprowadzono nieprawidlowe polecenie. Prosze wybrac liczbe z podanej listy.";
+            continue;
+        }
 
         if (currencyTarget == 0)
         {
@@ -58,16 +67,22 @@ void DisplayMenu::subMenu(std::string operationType)
         std::cout << "Podaj ilosc: " << std::endl;
         std::cin >> amount;
 
+        if (amount < 0)
+        {
+            lastDisplayMessage = "Wprowadzono nieprawidlowa kwote. Prosze wybrac walute z listy i podac kwote wieksza od zera. ";
+            continue;
+        }
+
         if (operationType == "kupic")
         {
             float bleble = _userRef.buy(codeTarget, amount);
-            std::cout << "Do zaplaty  " << bleble << "  PLN. " << std::endl;
+            lastDisplayMessage = "Kupiono " + std::to_string(amount) + " " + codeTarget + " za " + std::to_string(bleble) + " PLN. ";
 
         }
         else if (operationType == "sprzedac")
         {
             float blabla = _userRef.sell(codeTarget, amount);
-            std::cout << "Wymieniona kwota to: " << blabla << "  PLN. " << std::endl;
+            lastDisplayMessage = "Sprzedano " + std::to_string(amount) + " " + codeTarget + " za " + std::to_string(blabla) + " PLN. ";
         }
 
     } while (currencyTarget != 0);
@@ -81,6 +96,8 @@ DisplayMenu::DisplayMenu(User& user)
 void DisplayMenu::mainMenu()
 {
     int choice = 0;
+    std::string lastDisplayedMessage = "";
+
     do
     {
         system("cls");
@@ -91,11 +108,18 @@ void DisplayMenu::mainMenu()
         std::cout << "3 - Stan kasy (jeszcze nie wspierany)" << std::endl;
         std::cout << "4 - Aktualizuj kursy (jeszcze nie wspierany)" << std::endl;
         std::cout << "5 - Wyswietl aktualne kursy (jeszcze nie wspierany)" << std::endl;
-        std::cout << "0 - Wyjdz" << std::endl;
-        std::cout << std::endl;
+        std::cout << "0 - Wyjdz" << std::endl << std::endl;
 
+        std::cout << lastDisplayedMessage << std::endl << std::endl;
+        
         std::cout << "Co chcesz zrobic?: ";
         std::cin >> choice;
+
+        if (choice < 0 || choice > 5)
+        {
+            lastDisplayedMessage = "Wprowadzono nieprawidlowe polecenie. Prosze wybrac liczbe z podanej listy.";
+            continue;
+        }
 
         switch (choice)
         {
@@ -106,7 +130,8 @@ void DisplayMenu::mainMenu()
             subMenu("sprzedac");
             break;
         case 0:
-            std::cout << "Dziekujemy za skorzystanie ze SmartKantor" << std::endl;;
+            system("cls");
+            std::cout << std::endl << std::endl << "*** Dziekujemy za skorzystanie ze SmartKantor ***" << std::endl << std::endl;
             break;
         }
     } while (choice != 0);
@@ -132,4 +157,27 @@ std::ostream& operator<<(std::ostream& os, Currency::CurrencyCode currCode)
         return os << "USD";
         break;
     }  
+}
+
+std::string operator+(std::string str, Currency::CurrencyCode currCode)
+{
+    switch (currCode)
+    {
+    case Currency::CurrencyCode::CHF:
+        return str + "CHF";
+        break;
+    case Currency::CurrencyCode::EUR:
+        return str + "EUR";
+        break;
+    case Currency::CurrencyCode::GBP:
+        return str + "GBP";
+        break;
+    case Currency::CurrencyCode::PLN:
+        return str + "PLN";
+        break;
+    case Currency::CurrencyCode::USD:
+        return str + "USD";
+        break;
+    }
+  
 }
