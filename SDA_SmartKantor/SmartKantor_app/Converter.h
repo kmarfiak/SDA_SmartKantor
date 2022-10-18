@@ -19,7 +19,7 @@ public:
 	{
 		std::map<Currency::CurrencyCode, Currency> rates = tempRatesRetriever.getRates();
 
-		float wynik = amount * (1 / (rates[currCodeSource].getSellPrice()));
+		float wynik = amount * rates[currCodeSource].getSellPrice();
 		return wynik;
 	}
 
