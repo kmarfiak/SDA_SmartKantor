@@ -4,8 +4,6 @@
 #include "Converter.h"
 #include "User.hpp"
 
-
-
 class DisplayMenu
 {
 private:
@@ -18,3 +16,5 @@ public:
     DisplayMenu(User& user);
     void mainMenu();
 };
+
+std::ostream& operator<< (std::ostream& os, Currency::CurrencyCode currCode);

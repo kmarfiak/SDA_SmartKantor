@@ -24,15 +24,20 @@ Currency::CurrencyCode DisplayMenu::changeIntToCurrCode(int intToChange)
 void DisplayMenu::subMenu(std::string operationType)
 {
     int currencyTarget = 0;
+    std::map<Currency::CurrencyCode, Currency>& ratesMap = _userRef.getRates();
     do
     {
         // system("cls");
         std::cout << "Jaka walute chcesz " << operationType << "?" << std::endl;
         std::cout << std::endl;
-        std::cout << "1 - EUR" << std::endl;
-        std::cout << "2 - USD" << std::endl;
-        std::cout << "3 - GBP" << std::endl;
-        std::cout << "4 - CHF" << std::endl;
+        
+        int counter = 1;
+        for (auto element : ratesMap)
+        {
+            std::cout << counter << " - " << element.first << std::endl;
+            ++counter;
+        }
+
         std::cout << "0 - Wyjdz" << std::endl;
         std::cout << std::endl;
 
@@ -105,4 +110,26 @@ void DisplayMenu::mainMenu()
             break;
         }
     } while (choice != 0);
+}
+
+std::ostream& operator<<(std::ostream& os, Currency::CurrencyCode currCode)
+{
+    switch (currCode)
+    {
+    case Currency::CurrencyCode::CHF:
+        return os << "CHF";
+        break;
+    case Currency::CurrencyCode::EUR:
+        return os << "EUR";
+        break;
+    case Currency::CurrencyCode::GBP:
+        return os << "GBP";
+        break;
+    case Currency::CurrencyCode::PLN:
+        return os << "PLN";
+        break;
+    case Currency::CurrencyCode::USD:
+        return os << "USD";
+        break;
+    }  
 }
