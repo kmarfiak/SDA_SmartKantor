@@ -17,5 +17,10 @@ float User::sell(Currency::CurrencyCode currCodeSource, float amount) {
     return value;
 }
 
+std::map<Currency::CurrencyCode, Currency>& User::getRates()
+{
+    return _tempRates.getRates();
+}
+
 
  

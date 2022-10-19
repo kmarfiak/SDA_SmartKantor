@@ -7,7 +7,9 @@ class TempRatesRetriever
 {
 	std::map<Currency::CurrencyCode, Currency> rates;
 
-public: TempRatesRetriever() {
+public:
+	TempRatesRetriever()
+	{
 	Currency eur("euro", "EUR", 4.82, 4.91);
 	Currency usd("dolar", "USD", 4.99, 5.00);
 	Currency gbp("funt", "GBP", 5.53, 5.64);
@@ -17,9 +19,9 @@ public: TempRatesRetriever() {
 	rates[Currency::CurrencyCode::GBP] = gbp;
 	rates[Currency::CurrencyCode::CHF] = chf;
 
-}
+	}
 
-	  std::map<Currency::CurrencyCode, Currency> getRates() {
+	  std::map<Currency::CurrencyCode, Currency>& getRates() {
 		  return rates;
 	  }
 
