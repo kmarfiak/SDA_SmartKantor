@@ -3,7 +3,7 @@
 
 
 void DisplayMenu::subMenu(std::string operationType, Currency::CurrencyCode& currCode, Menu& menuRef)
-{   //poczatek i koniec przycisku w poziomie, ulozenie na srodku poprzez podzielenie szerokosci konsoli przez 2 i odjecie 1/2 szerokosci napisu
+{
     short int buttonXStartPosition = ConGui::ConsoleWidth / 2 - 13; 
     short int buttonXStopPosition = ConGui::ConsoleWidth / 2 + 13;
     std::string textToDisplay = "Jaka walute chcesz " + operationType + "?";
