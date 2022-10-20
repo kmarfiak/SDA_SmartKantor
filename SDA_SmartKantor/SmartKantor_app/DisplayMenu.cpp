@@ -1,91 +1,122 @@
 #include "DisplayMenu.hpp"
+#include "ConGui/ConGui.h"
 
 
+void DisplayMenu::subMenu(std::string operationType, Currency::CurrencyCode& currCode, Menu& menuRef)
+{   //poczatek i koniec przycisku w poziomie, ulozenie na srodku poprzez podzielenie szerokosci konsoli przez 2 i odjecie 1/2 szerokosci napisu
+    short int buttonXStartPosition = ConGui::ConsoleWidth / 2 - 13; 
+    short int buttonXStopPosition = ConGui::ConsoleWidth / 2 + 13;
+    std::string textToDisplay = "Jaka walute chcesz " + operationType + "?";
 
-Currency::CurrencyCode DisplayMenu::changeIntToCurrCode(int intToChange)
-{
-    switch (intToChange)
+    ConGui::Style::BoxStyle = ConGui::Style::BoxStyle_Combo;
+    ConGui::Box(0, 0, ConGui::ConsoleWidth - 1, ConGui::ConsoleHeight - 1);
+    ConGui::Style::BoxStyle = ConGui::Style::BoxStyle_Default;
+    ConGui::Text(ConGui::ConsoleWidth / 2 - 10, 0, textToDisplay.c_str());
+
+    std::map<Currency::CurrencyCode, Currency>& ratesMap = _userRef.getRates();
+
+    short int distanceBetweenButtons = 5;
+    for (auto element : ratesMap)
     {
-    case 1:
-        return Currency::CurrencyCode::EUR;
-        break;
-    case 2:
-        return Currency::CurrencyCode::USD;
-        break;
-    case 3:
-        return Currency::CurrencyCode::GBP;
-        break;
-    case 4:
-        return Currency::CurrencyCode::CHF;
-        break;
+        if (ConGui::Button(element.second.getCurrencyCode().c_str(), buttonXStartPosition, distanceBetweenButtons, buttonXStopPosition, distanceBetweenButtons+2, true))
+        {
+            currCode = element.first;
+            menuRef = Menu::MenuAmount;
+        }
+        distanceBetweenButtons += 3;
+    }
+
+    if (ConGui::Button("Wyjdz", buttonXStartPosition, 17, buttonXStopPosition, 19, true))
+    {
+        menuRef = Menu::MainMenu;
     }
 }
 
-void DisplayMenu::subMenu(std::string operationType)
+void DisplayMenu::subMenuAmount(std::string& amount, Currency::CurrencyCode& currCode, std::string& operationType, std::string& lastDisplayedMessage, Menu& menuRef)
 {
-    int currencyTarget = 0;
-    std::string lastDisplayMessage = "";
+    short int buttonXStartPosition = ConGui::ConsoleWidth / 2 - 13;
+    short int buttonXStopPosition = ConGui::ConsoleWidth / 2 + 13;
+    std::string textToDisplay = "Wymiana waluty";
 
-    std::map<Currency::CurrencyCode, Currency>& ratesMap = _userRef.getRates();
-    do
+    ConGui::Style::BoxStyle = ConGui::Style::BoxStyle_Combo;
+    ConGui::Box(0, 0, ConGui::ConsoleWidth - 1, ConGui::ConsoleHeight - 1);
+    ConGui::Style::BoxStyle = ConGui::Style::BoxStyle_Default;
+    ConGui::Text(ConGui::ConsoleWidth / 2 - 10, 0, textToDisplay.c_str());
+
+    ConGui::InputText("Podaj ilosc:", (ConGui::ConsoleWidth / 2) - 18, 3, 26, 144, &amount, true, false);
+
+    if (ConGui::Button("Wymien", buttonXStartPosition, 5, buttonXStopPosition, 7, true))
     {
-        system("cls");
-        std::cout << "Jaka walute chcesz " << operationType << "?" << std::endl;
-        std::cout << std::endl;
-        
-        int counter = 1;
-        for (auto element : ratesMap)
-        {
-            std::cout << counter << " - " << element.first << std::endl;
-            ++counter;
-        }
-
-        std::cout << "0 - Wyjdz" << std::endl << std::endl;
-
-        std::cout << lastDisplayMessage << std::endl << std::endl;
-
-        std::cout << "Co chcesz zrobic?: ";
-        std::cin >> currencyTarget;
-
-        if (currencyTarget < 0 || currencyTarget > (counter -1))
-        {
-            lastDisplayMessage = "Wprowadzono nieprawidlowe polecenie. Prosze wybrac liczbe z podanej listy.";
-            continue;
-        }
-
-        if (currencyTarget == 0)
-        {
-            break;
-        }
-
-        Currency::CurrencyCode codeTarget = changeIntToCurrCode(currencyTarget);
-
-        system("cls");
-
-        float amount = 0.0f;
-
-        std::cout << "Podaj ilosc: " << std::endl;
-        std::cin >> amount;
-
-        if (amount < 0)
-        {
-            lastDisplayMessage = "Wprowadzono nieprawidlowa kwote. Prosze wybrac walute z listy i podac kwote wieksza od zera. ";
-            continue;
-        }
+        ConGui::Fill(ConGui::Style::MainColor);
 
         if (operationType == "kupic")
         {
-            float bleble = _userRef.buy(codeTarget, amount);
-            lastDisplayMessage = "Kupiono " + std::to_string(amount) + " " + codeTarget + " za " + std::to_string(bleble) + " PLN. ";
-
+            if (std::stof(amount) > 0)
+            {
+                float amountToCalcBuy = _userRef.buy(currCode, std::stof(amount));
+                lastDisplayedMessage = "Kupiono " + amount + " " + currCode + " za " + std::to_string(amountToCalcBuy) + " PLN. ";
+            }
+            else
+            {
+                lastDisplayedMessage = "Wprowadzono bledna kwote. Prosze podac kwote wieksza od zera.";
+            }
         }
         else if (operationType == "sprzedac")
         {
-            float blabla = _userRef.sell(codeTarget, amount);
-            lastDisplayMessage = "Sprzedano " + std::to_string(amount) + " " + codeTarget + " za " + std::to_string(blabla) + " PLN. ";
+            if (std::stof(amount) > 0)
+            {
+                float amountToCalcSell = _userRef.sell(currCode, std::stof(amount));
+                lastDisplayedMessage = "Sprzedano " + amount + " " + currCode + " za " + std::to_string(amountToCalcSell) + " PLN. ";
+            }
+            else
+            {
+                lastDisplayedMessage = "Wprowadzono bledna kwote. Prosze podac kwote wieksza od zera.";
+            }
         }
+        menuRef = Menu::MainMenu;
+    }
+    else if (ConGui::Button("Wyjdz", buttonXStartPosition, 8, buttonXStopPosition, 10, true))
+    {
+        ConGui::Fill(ConGui::Style::MainColor);
+        menuRef = Menu::MainMenu;
+    }
+}
 
-    } while (currencyTarget != 0);
+void DisplayMenu::initialMenu(std::string& lastDisplayedMessage, Menu& menu)
+{
+    ConGui::Style::BoxStyle = ConGui::Style::BoxStyle_Combo;
+    ConGui::Box(0, 0, ConGui::ConsoleWidth - 1, ConGui::ConsoleHeight - 1);
+    ConGui::Style::BoxStyle = ConGui::Style::BoxStyle_Default;
+    ConGui::Text(ConGui::ConsoleWidth / 2 - 10, 0, "Witamy w SmartKantor");
+
+    short int buttonXStartPosition = ConGui::ConsoleWidth / 2 - 13;
+    short int buttonXStopPosition = ConGui::ConsoleWidth / 2 + 13;
+
+    if (ConGui::Button("Kupno", buttonXStartPosition, 5, buttonXStopPosition, 7, true))
+    {
+        menu = Menu::MenuBuy;
+    }
+    else if (ConGui::Button("Sprzedaz", buttonXStartPosition, 8, buttonXStopPosition, 10, true))
+    {
+        menu = Menu::MenuSell;
+    }
+    else if (ConGui::Button("Stan kasy", buttonXStartPosition, 11, buttonXStopPosition, 13, true))
+    {
+        lastDisplayedMessage = "Jeszcze nie wspierany";
+    }
+    else if (ConGui::Button("Aktualizuj kursy", buttonXStartPosition, 14, buttonXStopPosition, 16, true))
+    {
+        lastDisplayedMessage = "Jeszcze nie wspierany";
+    }
+    else if (ConGui::Button("Wyswietl aktualne kursy", buttonXStartPosition, 17, buttonXStopPosition, 19, true))
+    {
+        lastDisplayedMessage = "Jeszcze nie wspierany";
+    }
+    else if (ConGui::Button("Wyjdz", buttonXStartPosition, 20, buttonXStopPosition, 22, true))
+    {
+        menu = Menu::ExitOption;
+    }
+    ConGui::Text((ConGui::ConsoleWidth / 2) - (lastDisplayedMessage.length() / 2) -1, 25, lastDisplayedMessage.c_str());
 }
 
 DisplayMenu::DisplayMenu(User& user)
@@ -98,43 +129,47 @@ void DisplayMenu::mainMenu()
     int choice = 0;
     std::string lastDisplayedMessage = "";
 
-    do
+    SetConsoleTitleA("SmartKantor - wymiana walut");
+    ConGui::ApplyConsoleStyle(20, L"Consolas");
+    ConGui::SetWindow(100, 40, false, true);
+    ConGui::Init();
+    ConGui::SetCursorState(false);
+
+    Menu menu = Menu::MainMenu;
+    bool exit = false;
+    std::string amount = "";
+    std::string operationType = "";
+    Currency::CurrencyCode currCode;
+
+    while (!exit)
     {
-        system("cls");
+        ConGui::Style::ThemeBlue();
+        Sleep(1);
+        ConGui::Frame();
+        ConGui::InputHandle();
 
-        std::cout << "**** Witamy w SmartKantor ****" << std::endl << std::endl;
-        std::cout << "1 - Kupno" << std::endl;
-        std::cout << "2 - Sprzedaz" << std::endl;
-        std::cout << "3 - Stan kasy (jeszcze nie wspierany)" << std::endl;
-        std::cout << "4 - Aktualizuj kursy (jeszcze nie wspierany)" << std::endl;
-        std::cout << "5 - Wyswietl aktualne kursy (jeszcze nie wspierany)" << std::endl;
-        std::cout << "0 - Wyjdz" << std::endl << std::endl;
-
-        std::cout << lastDisplayedMessage << std::endl << std::endl;
-        
-        std::cout << "Co chcesz zrobic?: ";
-        std::cin >> choice;
-
-        if (choice < 0 || choice > 5)
+        switch (menu)
         {
-            lastDisplayedMessage = "Wprowadzono nieprawidlowe polecenie. Prosze wybrac liczbe z podanej listy.";
-            continue;
-        }
-
-        switch (choice)
-        {
-        case 1:
-            subMenu("kupic"); //dodawanie koncowki do menu zeby byla tylko jedna funkcja bo dziala tak samo dla kupna/sprzedazy
+        case Menu::MainMenu:
+            initialMenu(lastDisplayedMessage, menu);
             break;
-        case 2:
-            subMenu("sprzedac");
+        case Menu::MenuBuy:
+            operationType = "kupic";
+            subMenu(operationType, currCode, menu);
             break;
-        case 0:
-            system("cls");
-            std::cout << std::endl << std::endl << "*** Dziekujemy za skorzystanie ze SmartKantor ***" << std::endl << std::endl;
+        case Menu::MenuSell:
+            operationType = "sprzedac";
+            subMenu(operationType, currCode, menu);
+            break;
+        case Menu::MenuAmount:
+            subMenuAmount(amount, currCode, operationType, lastDisplayedMessage, menu);
+            break;
+        case Menu::ExitOption:
+            exit = true;
             break;
         }
-    } while (choice != 0);
+        ConGui::Render();
+    }
 }
 
 std::ostream& operator<<(std::ostream& os, Currency::CurrencyCode currCode)

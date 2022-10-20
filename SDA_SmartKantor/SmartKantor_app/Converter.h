@@ -4,7 +4,6 @@
 
 class Converter
 {
-
 	TempRatesRetriever tempRatesRetriever;
 public:
 

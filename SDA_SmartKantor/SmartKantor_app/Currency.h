@@ -22,6 +22,7 @@ public:
 	float getSellPrice();
 	void setSellPrice(float newSellPrice);
 	std::string getCurrencySource();
+	std::string getCurrencyCode();
 	void setCurrencySource(std::string currencySource);
 	//void to_json(json& j, const Currency& s);
 	//void from_json(const json& j, Currency& s);
