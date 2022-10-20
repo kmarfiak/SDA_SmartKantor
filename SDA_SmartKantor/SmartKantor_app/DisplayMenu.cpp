@@ -49,32 +49,38 @@ void DisplayMenu::subMenuAmount(std::string& amount, Currency::CurrencyCode& cur
     {
         ConGui::Fill(ConGui::Style::MainColor);
 
-        if (operationType == "kupic")
+        try
         {
-            if (std::stof(amount) > 0)
+            if (operationType == "kupic")
             {
-                float amountToCalcBuy = _userRef.buy(currCode, std::stof(amount));
-                lastDisplayedMessage = "Kupiono " + amount + " " + currCode + " za " + std::to_string(amountToCalcBuy) + " PLN. ";
-                amount = "";
+                if (std::stof(amount) > 0)
+                {
+                    float amountToCalcBuy = _userRef.buy(currCode, std::stof(amount));
+                    lastDisplayedMessage = "Kupiono " + amount + " " + currCode + " za " + std::to_string(amountToCalcBuy) + " PLN. ";
+                }
+                else
+                {
+                    lastDisplayedMessage = "Wprowadzono bledna kwote. Prosze podac kwote wieksza od zera.";
+                }
             }
-            else
+            else if (operationType == "sprzedac")
             {
-                lastDisplayedMessage = "Wprowadzono bledna kwote. Prosze podac kwote wieksza od zera.";
+                if (std::stof(amount) > 0)
+                {
+                    float amountToCalcSell = _userRef.sell(currCode, std::stof(amount));
+                    lastDisplayedMessage = "Sprzedano " + amount + " " + currCode + " za " + std::to_string(amountToCalcSell) + " PLN. ";
+                }
+                else
+                {
+                    lastDisplayedMessage = "Wprowadzono bledna kwote. Prosze podac kwote wieksza od zera.";
+                }
             }
         }
-        else if (operationType == "sprzedac")
+        catch(std::invalid_argument)
         {
-            if (std::stof(amount) > 0)
-            {
-                float amountToCalcSell = _userRef.sell(currCode, std::stof(amount));
-                lastDisplayedMessage = "Sprzedano " + amount + " " + currCode + " za " + std::to_string(amountToCalcSell) + " PLN. ";
-                amount = "";
-            }
-            else
-            {
-                lastDisplayedMessage = "Wprowadzono bledna kwote. Prosze podac kwote wieksza od zera.";
-            }
+            lastDisplayedMessage = "Wprowadzono nieprawidlowa wartosc. Prosze podac kwote do wymiany.";
         }
+        amount = "";
         menuRef = Menu::MainMenu;
     }
     else if (ConGui::Button("Wyjdz", buttonXStartPosition, 8, buttonXStopPosition, 10, true))
