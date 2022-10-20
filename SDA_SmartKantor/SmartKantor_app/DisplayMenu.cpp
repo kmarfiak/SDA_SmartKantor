@@ -55,6 +55,7 @@ void DisplayMenu::subMenuAmount(std::string& amount, Currency::CurrencyCode& cur
             {
                 float amountToCalcBuy = _userRef.buy(currCode, std::stof(amount));
                 lastDisplayedMessage = "Kupiono " + amount + " " + currCode + " za " + std::to_string(amountToCalcBuy) + " PLN. ";
+                amount = "";
             }
             else
             {
@@ -67,6 +68,7 @@ void DisplayMenu::subMenuAmount(std::string& amount, Currency::CurrencyCode& cur
             {
                 float amountToCalcSell = _userRef.sell(currCode, std::stof(amount));
                 lastDisplayedMessage = "Sprzedano " + amount + " " + currCode + " za " + std::to_string(amountToCalcSell) + " PLN. ";
+                amount = "";
             }
             else
             {
