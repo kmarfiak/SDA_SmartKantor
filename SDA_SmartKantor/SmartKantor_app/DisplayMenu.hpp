@@ -4,14 +4,19 @@
 #include "Converter.h"
 #include "User.hpp"
 
+enum class Menu
+{
+    MainMenu, MenuBuy, MenuSell, MenuAmount, ExitOption
+};
+
 class DisplayMenu
 {
 private:
     User& _userRef;
 
-    Currency::CurrencyCode changeIntToCurrCode(int intToChange);
-    void subMenu(std::string operationType);
-
+    void subMenu(std::string operationType, Currency::CurrencyCode& currCode, Menu& menuRef);
+    void subMenuAmount(std::string& amount, Currency::CurrencyCode& currCode, std::string& operationType, std::string& lastDisplayedMessage, Menu& menuRef);
+    void initialMenu(std::string& lastDisplayedMessage, Menu& menu);
 public:
     DisplayMenu(User& user);
     void mainMenu();

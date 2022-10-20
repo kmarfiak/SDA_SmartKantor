@@ -1,0 +1,3 @@
+[submodule "SDA_SmartKantor/ConGui"]
+	path = SDA_SmartKantor/ConGui
+	url = https://github.com/KleskBY/ConGui.git

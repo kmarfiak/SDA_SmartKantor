@@ -2,7 +2,6 @@
 #include "DisplayMenu.hpp"
 #include "TempRatesRetriever.h"
 
-
 int main()
 {
 	TempRatesRetriever tempObj;
