@@ -142,6 +142,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="BalanceManager.hpp" />
     <ClInclude Include="Converter.h" />
     <ClInclude Include="Currency.h" />
     <ClInclude Include="DisplayMenu.hpp" />
@@ -149,6 +150,7 @@
     <ClInclude Include="User.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BalanceManager.cpp" />
     <ClCompile Include="Currency.cpp" />
     <ClCompile Include="DisplayMenu.cpp" />
     <ClCompile Include="Main.cpp" />
