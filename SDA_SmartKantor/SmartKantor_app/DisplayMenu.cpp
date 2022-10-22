@@ -13,7 +13,7 @@ void DisplayMenu::subMenu(std::string operationType, Currency::CurrencyCode& cur
     ConGui::Style::BoxStyle = ConGui::Style::BoxStyle_Default;
     ConGui::Text(ConGui::ConsoleWidth / 2 - 10, 0, textToDisplay.c_str());
 
-    std::map<Currency::CurrencyCode, Currency>& ratesMap = _userRef.getRates();
+    std::map<Currency::CurrencyCode, Currency>& ratesMap = _cashierRef.getRates();
 
     short int distanceBetweenButtons = 5;
     for (auto element : ratesMap)
@@ -55,7 +55,7 @@ void DisplayMenu::subMenuAmount(std::string& amount, Currency::CurrencyCode& cur
             {
                 if (std::stof(amount) > 0)
                 {
-                    float amountToCalcBuy = _userRef.buy(currCode, std::stof(amount));
+                    float amountToCalcBuy = _cashierRef.buy(currCode, std::stof(amount));
                     lastDisplayedMessage = "Kupiono " + amount + " " + currCode + " za " + std::to_string(amountToCalcBuy) + " PLN. ";
                 }
                 else
@@ -67,7 +67,7 @@ void DisplayMenu::subMenuAmount(std::string& amount, Currency::CurrencyCode& cur
             {
                 if (std::stof(amount) > 0)
                 {
-                    float amountToCalcSell = _userRef.sell(currCode, std::stof(amount));
+                    float amountToCalcSell = _cashierRef.sell(currCode, std::stof(amount));
                     lastDisplayedMessage = "Sprzedano " + amount + " " + currCode + " za " + std::to_string(amountToCalcSell) + " PLN. ";
                 }
                 else
@@ -127,8 +127,8 @@ void DisplayMenu::initialMenu(std::string& lastDisplayedMessage, Menu& menu)
     ConGui::Text((ConGui::ConsoleWidth / 2) - (lastDisplayedMessage.length() / 2) -1, 25, lastDisplayedMessage.c_str());
 }
 
-DisplayMenu::DisplayMenu(User& user)
-    : _userRef(user)
+DisplayMenu::DisplayMenu(Cashier& cashier)
+    : _cashierRef(cashier)
 {
 }
 

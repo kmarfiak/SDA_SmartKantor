@@ -2,19 +2,18 @@
 #include <iostream>
 #include <string>
 
-#include "TempRatesRetriever.h"
-#include "Converter.h"
+#include "TempRatesRetriever.hpp"
+#include "Converter.hpp"
 #include "BalanceManager.hpp"
 
-class User
+class Cashier
 { 
-private:
 	Converter converter1;
 	BalanceManager _balance;
 	TempRatesRetriever& _tempRates;
 
 public:
-	User(TempRatesRetriever& temp)
+	Cashier(TempRatesRetriever& temp)
 		: _tempRates(temp) {}
 
 	//kantor kupuje walute
