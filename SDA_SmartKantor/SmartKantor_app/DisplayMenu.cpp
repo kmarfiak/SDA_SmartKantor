@@ -1,5 +1,6 @@
 #include "DisplayMenu.hpp"
 #include "ConGui/ConGui.h"
+#include "User.hpp"
 
 
 void DisplayMenu::subMenu(std::string operationType, Currency::CurrencyCode& currCode, Menu& menuRef)
@@ -180,47 +181,3 @@ void DisplayMenu::mainMenu()
     }
 }
 
-std::ostream& operator<<(std::ostream& os, Currency::CurrencyCode currCode)
-{
-    switch (currCode)
-    {
-    case Currency::CurrencyCode::CHF:
-        return os << "CHF";
-        break;
-    case Currency::CurrencyCode::EUR:
-        return os << "EUR";
-        break;
-    case Currency::CurrencyCode::GBP:
-        return os << "GBP";
-        break;
-    case Currency::CurrencyCode::PLN:
-        return os << "PLN";
-        break;
-    case Currency::CurrencyCode::USD:
-        return os << "USD";
-        break;
-    }  
-}
-
-std::string operator+(std::string str, Currency::CurrencyCode currCode)
-{
-    switch (currCode)
-    {
-    case Currency::CurrencyCode::CHF:
-        return str + "CHF";
-        break;
-    case Currency::CurrencyCode::EUR:
-        return str + "EUR";
-        break;
-    case Currency::CurrencyCode::GBP:
-        return str + "GBP";
-        break;
-    case Currency::CurrencyCode::PLN:
-        return str + "PLN";
-        break;
-    case Currency::CurrencyCode::USD:
-        return str + "USD";
-        break;
-    }
-  
-}
