@@ -15,19 +15,19 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Converter.h">
+    <ClInclude Include="Converter.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Currency.h">
+    <ClInclude Include="Currency.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="DisplayMenu.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="TempRatesRetriever.h">
+    <ClInclude Include="TempRatesRetriever.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="User.hpp">
+    <ClInclude Include="Cashier.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="BalanceManager.hpp">
@@ -44,7 +44,7 @@
     <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="User.cpp">
+    <ClCompile Include="Cashier.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="BalanceManager.cpp">

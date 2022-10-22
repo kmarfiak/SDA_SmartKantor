@@ -1,11 +1,12 @@
 #include <iostream>
 #include <string>
 
-#include "User.hpp"
+#include "Cashier.hpp"
+#include "BalanceManager.hpp"
 
 
 
-float User::buy(Currency::CurrencyCode currCodeSource, float amount)
+float Cashier::buy(Currency::CurrencyCode currCodeSource, float amount)
 {
     // kupujemy od uzytkownika np. eur
     // zwieksza nam sie euro w balansie, wyplacamy pln
@@ -17,7 +18,7 @@ float User::buy(Currency::CurrencyCode currCodeSource, float amount)
     return value_pln;
 }
 
-float User::sell(Currency::CurrencyCode currCodeSource, float amount) 
+float Cashier::sell(Currency::CurrencyCode currCodeSource, float amount) 
 {
     // sprzedajemy euro
     // przybywa pln, ubywa euro
@@ -30,7 +31,7 @@ float User::sell(Currency::CurrencyCode currCodeSource, float amount)
     
 }
 
-std::map<Currency::CurrencyCode, Currency>& User::getRates()
+std::map<Currency::CurrencyCode, Currency>& Cashier::getRates()
 {
     return _tempRates.getRates();
 }

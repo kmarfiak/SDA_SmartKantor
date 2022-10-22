@@ -1,6 +1,7 @@
 #pragma once
 #include<map>
-#include "TempRatesRetriever.h"
+
+#include "TempRatesRetriever.hpp"
 
 class Converter
 {

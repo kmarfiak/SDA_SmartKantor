@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
-#include "Currency.h"
+
+#include "Currency.hpp"
 //#include "json/json.hpp"
 
 

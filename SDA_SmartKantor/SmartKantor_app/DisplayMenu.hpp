@@ -1,8 +1,9 @@
 #pragma once
 #include <iostream>
 #include <string>
-#include "Converter.h"
-#include "User.hpp"
+
+#include "Converter.hpp"
+#include "Cashier.hpp"
 
 enum class Menu
 {
@@ -12,13 +13,13 @@ enum class Menu
 class DisplayMenu
 {
 private:
-    User& _userRef;
+    Cashier& _cashierRef;
 
     void subMenu(std::string operationType, Currency::CurrencyCode& currCode, Menu& menuRef);
     void subMenuAmount(std::string& amount, Currency::CurrencyCode& currCode, std::string& operationType, std::string& lastDisplayedMessage, Menu& menuRef);
     void initialMenu(std::string& lastDisplayedMessage, Menu& menu);
 public:
-    DisplayMenu(User& user);
+    DisplayMenu(Cashier& cashier);
     void mainMenu();
 };
 

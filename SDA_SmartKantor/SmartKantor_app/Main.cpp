@@ -1,12 +1,13 @@
 #include <iostream>
+
 #include "DisplayMenu.hpp"
-#include "TempRatesRetriever.h"
+#include "TempRatesRetriever.hpp"
 
 int main()
 {
 	TempRatesRetriever tempObj;
-	User userObj(tempObj);
-	DisplayMenu display(userObj);
+	Cashier cashierObj(tempObj);
+	DisplayMenu display(cashierObj);
 
 	display.mainMenu();
 
