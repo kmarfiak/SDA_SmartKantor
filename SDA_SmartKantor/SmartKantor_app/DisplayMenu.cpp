@@ -1,6 +1,131 @@
 #include "DisplayMenu.hpp"
 #include "ConGui/ConGui.h"
+#include "Cashier.hpp"
 
+
+DisplayMenu::DisplayMenu(Cashier& cashier)
+    : _cashierRef(cashier) {}
+
+void DisplayMenu::mainMenu()
+{
+    int choice = 0;
+    std::string lastDisplayedMessage = "";
+
+    SetConsoleTitleA("SmartKantor - wymiana walut");
+    ConGui::ApplyConsoleStyle(20, L"Consolas");
+    ConGui::SetWindow(100, 40, false, true);
+    ConGui::Init();
+    ConGui::SetCursorState(false);
+
+    Menu menu = Menu::MainMenu;
+    bool exit = false;
+    std::string amount = "";
+    std::string operationType = "";
+    Currency::CurrencyCode currCode;
+
+    while (!exit)
+    {
+        ConGui::Style::ThemeBlue();
+        Sleep(1);
+        ConGui::Frame();
+        ConGui::InputHandle();
+
+        switch (menu)
+        {
+        case Menu::MainMenu:
+            initialMenu(lastDisplayedMessage, menu);
+            break;
+        case Menu::MenuBuy:
+            operationType = "kupic";
+            subMenu(operationType, currCode, menu);
+            break;
+        case Menu::MenuSell:
+            operationType = "sprzedac";
+            subMenu(operationType, currCode, menu);
+            break;
+        case Menu::MenuAmount:
+            subMenuAmount(amount, currCode, operationType, lastDisplayedMessage, menu);
+            break;
+        case Menu::MenuBalance:
+            subMenuBalance(lastDisplayedMessage, menu);
+            break;
+        case Menu::ExitOption:
+            exit = true;
+            break;
+        }
+        ConGui::Render();
+    }
+}
+
+void DisplayMenu::initialMenu(std::string& lastDisplayedMessage, Menu& menu)
+{
+    ConGui::Style::BoxStyle = ConGui::Style::BoxStyle_Combo;
+    ConGui::Box(0, 0, ConGui::ConsoleWidth - 1, ConGui::ConsoleHeight - 1);
+    ConGui::Style::BoxStyle = ConGui::Style::BoxStyle_Default;
+    ConGui::Text(ConGui::ConsoleWidth / 2 - 10, 0, "Witamy w SmartKantor");
+
+    short int buttonXStartPosition = ConGui::ConsoleWidth / 2 - 13;
+    short int buttonXStopPosition = ConGui::ConsoleWidth / 2 + 13;
+
+    if (ConGui::Button("Kupno", buttonXStartPosition, 5, buttonXStopPosition, 7, true))
+    {
+        menu = Menu::MenuBuy;
+    }
+    else if (ConGui::Button("Sprzedaz", buttonXStartPosition, 8, buttonXStopPosition, 10, true))
+    {
+        menu = Menu::MenuSell;
+    }
+    else if (ConGui::Button("Stan kasy", buttonXStartPosition, 11, buttonXStopPosition, 13, true))
+    {
+        menu = Menu::MenuBalance;
+    }
+    else if (ConGui::Button("Aktualizuj kursy", buttonXStartPosition, 14, buttonXStopPosition, 16, true))
+    {
+        lastDisplayedMessage = "Jeszcze nie wspierany";
+    }
+    else if (ConGui::Button("Wyswietl aktualne kursy", buttonXStartPosition, 17, buttonXStopPosition, 19, true))
+    {
+        lastDisplayedMessage = "Jeszcze nie wspierany";
+    }
+    else if (ConGui::Button("Wyjdz", buttonXStartPosition, 20, buttonXStopPosition, 22, true))
+    {
+        menu = Menu::ExitOption;
+    }
+    ConGui::Text((ConGui::ConsoleWidth / 2) - (lastDisplayedMessage.length() / 2) - 1, 25, lastDisplayedMessage.c_str());
+}
+
+void DisplayMenu::subMenuBalance(std::string& lastDisplayedMessage, Menu& menuRef)
+{
+    std::map <Currency::CurrencyCode, float> balanceMap = _cashierRef.getBalance();
+
+    std::string currCodeString = "";
+    short int distanceBetweenText = 5;
+    short int buttonXStartPosition = ConGui::ConsoleWidth / 2 - 13;
+    short int buttonXStopPosition = ConGui::ConsoleWidth / 2 + 13;
+   
+    ConGui::Fill(ConGui::Style::MainColor);
+
+    std::string textToDisplay = "Aktualny stan kasy";
+
+    ConGui::Style::BoxStyle = ConGui::Style::BoxStyle_Combo;
+    ConGui::Box(0, 0, ConGui::ConsoleWidth - 1, ConGui::ConsoleHeight - 1);
+    ConGui::Style::BoxStyle = ConGui::Style::BoxStyle_Default;
+    ConGui::Text(ConGui::ConsoleWidth / 2 - 10, 0, textToDisplay.c_str());
+
+    for (auto element : balanceMap)
+    {
+        std::string currCodeString = changeEnumToString(element.first) + " | " + std::to_string(element.second);
+
+        ConGui::Box((ConGui::ConsoleWidth / 2) - (currCodeString.length() / 2) -3, (distanceBetweenText -1), (ConGui::ConsoleWidth / 2) + (currCodeString.length() / 2) + 2, (distanceBetweenText + 1));
+        ConGui::Text((ConGui::ConsoleWidth / 2) - (currCodeString.length() / 2) - 1, distanceBetweenText, currCodeString.c_str());
+        distanceBetweenText += 3;
+    }
+
+    if (ConGui::Button("Wyjdz", buttonXStartPosition, (distanceBetweenText - 1), buttonXStopPosition, (distanceBetweenText + 1), true))
+    {
+        menuRef = Menu::MainMenu;
+    }
+}
 
 void DisplayMenu::subMenu(std::string operationType, Currency::CurrencyCode& currCode, Menu& menuRef)
 {
@@ -88,139 +213,4 @@ void DisplayMenu::subMenuAmount(std::string& amount, Currency::CurrencyCode& cur
         ConGui::Fill(ConGui::Style::MainColor);
         menuRef = Menu::MainMenu;
     }
-}
-
-void DisplayMenu::initialMenu(std::string& lastDisplayedMessage, Menu& menu)
-{
-    ConGui::Style::BoxStyle = ConGui::Style::BoxStyle_Combo;
-    ConGui::Box(0, 0, ConGui::ConsoleWidth - 1, ConGui::ConsoleHeight - 1);
-    ConGui::Style::BoxStyle = ConGui::Style::BoxStyle_Default;
-    ConGui::Text(ConGui::ConsoleWidth / 2 - 10, 0, "Witamy w SmartKantor");
-
-    short int buttonXStartPosition = ConGui::ConsoleWidth / 2 - 13;
-    short int buttonXStopPosition = ConGui::ConsoleWidth / 2 + 13;
-
-    if (ConGui::Button("Kupno", buttonXStartPosition, 5, buttonXStopPosition, 7, true))
-    {
-        menu = Menu::MenuBuy;
-    }
-    else if (ConGui::Button("Sprzedaz", buttonXStartPosition, 8, buttonXStopPosition, 10, true))
-    {
-        menu = Menu::MenuSell;
-    }
-    else if (ConGui::Button("Stan kasy", buttonXStartPosition, 11, buttonXStopPosition, 13, true))
-    {
-        lastDisplayedMessage = "Jeszcze nie wspierany";
-    }
-    else if (ConGui::Button("Aktualizuj kursy", buttonXStartPosition, 14, buttonXStopPosition, 16, true))
-    {
-        lastDisplayedMessage = "Jeszcze nie wspierany";
-    }
-    else if (ConGui::Button("Wyswietl aktualne kursy", buttonXStartPosition, 17, buttonXStopPosition, 19, true))
-    {
-        lastDisplayedMessage = "Jeszcze nie wspierany";
-    }
-    else if (ConGui::Button("Wyjdz", buttonXStartPosition, 20, buttonXStopPosition, 22, true))
-    {
-        menu = Menu::ExitOption;
-    }
-    ConGui::Text((ConGui::ConsoleWidth / 2) - (lastDisplayedMessage.length() / 2) -1, 25, lastDisplayedMessage.c_str());
-}
-
-DisplayMenu::DisplayMenu(Cashier& cashier)
-    : _cashierRef(cashier)
-{
-}
-
-void DisplayMenu::mainMenu()
-{
-    int choice = 0;
-    std::string lastDisplayedMessage = "";
-
-    SetConsoleTitleA("SmartKantor - wymiana walut");
-    ConGui::ApplyConsoleStyle(20, L"Consolas");
-    ConGui::SetWindow(100, 40, false, true);
-    ConGui::Init();
-    ConGui::SetCursorState(false);
-
-    Menu menu = Menu::MainMenu;
-    bool exit = false;
-    std::string amount = "";
-    std::string operationType = "";
-    Currency::CurrencyCode currCode;
-
-    while (!exit)
-    {
-        ConGui::Style::ThemeBlue();
-        Sleep(1);
-        ConGui::Frame();
-        ConGui::InputHandle();
-
-        switch (menu)
-        {
-        case Menu::MainMenu:
-            initialMenu(lastDisplayedMessage, menu);
-            break;
-        case Menu::MenuBuy:
-            operationType = "kupic";
-            subMenu(operationType, currCode, menu);
-            break;
-        case Menu::MenuSell:
-            operationType = "sprzedac";
-            subMenu(operationType, currCode, menu);
-            break;
-        case Menu::MenuAmount:
-            subMenuAmount(amount, currCode, operationType, lastDisplayedMessage, menu);
-            break;
-        case Menu::ExitOption:
-            exit = true;
-            break;
-        }
-        ConGui::Render();
-    }
-}
-
-std::ostream& operator<<(std::ostream& os, Currency::CurrencyCode currCode)
-{
-    switch (currCode)
-    {
-    case Currency::CurrencyCode::CHF:
-        return os << "CHF";
-        break;
-    case Currency::CurrencyCode::EUR:
-        return os << "EUR";
-        break;
-    case Currency::CurrencyCode::GBP:
-        return os << "GBP";
-        break;
-    case Currency::CurrencyCode::PLN:
-        return os << "PLN";
-        break;
-    case Currency::CurrencyCode::USD:
-        return os << "USD";
-        break;
-    }  
-}
-
-std::string operator+(std::string str, Currency::CurrencyCode currCode)
-{
-    switch (currCode)
-    {
-    case Currency::CurrencyCode::CHF:
-        return str + "CHF";
-        break;
-    case Currency::CurrencyCode::EUR:
-        return str + "EUR";
-        break;
-    case Currency::CurrencyCode::GBP:
-        return str + "GBP";
-        break;
-    case Currency::CurrencyCode::PLN:
-        return str + "PLN";
-        break;
-    case Currency::CurrencyCode::USD:
-        return str + "USD";
-        break;
-    }
-  
 }

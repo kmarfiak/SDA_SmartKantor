@@ -23,4 +23,7 @@ public:
 	float sell(Currency::CurrencyCode currCodeSource, float amount);
 
 	std::map<Currency::CurrencyCode, Currency>& getRates();
+
+	std::map<Currency::CurrencyCode, float>& getBalance();
+
 };

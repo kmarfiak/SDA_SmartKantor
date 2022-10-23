@@ -28,3 +28,8 @@ public:
 	//void from_json(const json& j, Currency& s);
 };
 
+std::ostream& operator<< (std::ostream& os, Currency::CurrencyCode currCode);
+
+std::string operator+ (std::string str, Currency::CurrencyCode currCode);
+
+std::string changeEnumToString(Currency::CurrencyCode currCode);

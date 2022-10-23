@@ -36,5 +36,10 @@ std::map<Currency::CurrencyCode, Currency>& Cashier::getRates()
     return _tempRates.getRates();
 }
 
+std::map<Currency::CurrencyCode, float>& Cashier::getBalance()
+{
+    return _balance.getBalance();
+}
+
 
  

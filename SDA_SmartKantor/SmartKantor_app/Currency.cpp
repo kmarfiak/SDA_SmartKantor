@@ -45,3 +45,37 @@ void Currency::setCurrencySource(std::string currencySource)
 {
 	this->currencySource = currencySource;
 }
+
+// przerzucilam tu przeciazenia operatorow scisle zwiazane z klasa Currency (przydadza sie tez do wyswietlania stanu kasy z BalanceManagera)
+
+std::ostream& operator<<(std::ostream& os, Currency::CurrencyCode currCode)
+{
+    return os << changeEnumToString(currCode);
+}
+
+std::string operator+(std::string str, Currency::CurrencyCode currCode)
+{
+    return str + changeEnumToString(currCode);
+}
+
+std::string changeEnumToString(Currency::CurrencyCode currCode)
+{
+    switch (currCode)
+    {
+    case Currency::CurrencyCode::CHF:
+        return "CHF";
+        break;
+    case Currency::CurrencyCode::EUR:
+        return "EUR";
+        break;
+    case Currency::CurrencyCode::GBP:
+        return "GBP";
+        break;
+    case Currency::CurrencyCode::PLN:
+        return "PLN";
+        break;
+    case Currency::CurrencyCode::USD:
+        return "USD";
+        break;
+    }
+}
