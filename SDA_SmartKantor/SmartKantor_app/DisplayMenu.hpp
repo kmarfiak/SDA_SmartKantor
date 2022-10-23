@@ -7,7 +7,7 @@
 
 enum class Menu
 {
-    MainMenu, MenuBuy, MenuSell, MenuAmount, ExitOption
+    MainMenu, MenuBuy, MenuSell, MenuAmount, MenuBalance, ExitOption
 };
 
 class DisplayMenu
@@ -17,7 +17,8 @@ private:
 
     void subMenu(std::string operationType, Currency::CurrencyCode& currCode, Menu& menuRef);
     void subMenuAmount(std::string& amount, Currency::CurrencyCode& currCode, std::string& operationType, std::string& lastDisplayedMessage, Menu& menuRef);
-    void initialMenu(std::string& lastDisplayedMessage, Menu& menu);
+    void initialMenu(std::string& lastDisplayedMessage, Menu& menuRef);
+    void subMenuBalance(std::string& lastDisplayedMessage, Menu& menuRef);
 public:
     DisplayMenu(Cashier& cashier);
     void mainMenu();

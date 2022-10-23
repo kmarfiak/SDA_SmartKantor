@@ -50,45 +50,32 @@ void Currency::setCurrencySource(std::string currencySource)
 
 std::ostream& operator<<(std::ostream& os, Currency::CurrencyCode currCode)
 {
-    switch (currCode)
-    {
-    case Currency::CurrencyCode::CHF:
-        return os << "CHF";
-        break;
-    case Currency::CurrencyCode::EUR:
-        return os << "EUR";
-        break;
-    case Currency::CurrencyCode::GBP:
-        return os << "GBP";
-        break;
-    case Currency::CurrencyCode::PLN:
-        return os << "PLN";
-        break;
-    case Currency::CurrencyCode::USD:
-        return os << "USD";
-        break;
-    }
+    return os << changeEnumToString(currCode);
 }
 
 std::string operator+(std::string str, Currency::CurrencyCode currCode)
 {
+    return str + changeEnumToString(currCode);
+}
+
+std::string changeEnumToString(Currency::CurrencyCode currCode)
+{
     switch (currCode)
     {
     case Currency::CurrencyCode::CHF:
-        return str + "CHF";
+        return "CHF";
         break;
     case Currency::CurrencyCode::EUR:
-        return str + "EUR";
+        return "EUR";
         break;
     case Currency::CurrencyCode::GBP:
-        return str + "GBP";
+        return "GBP";
         break;
     case Currency::CurrencyCode::PLN:
-        return str + "PLN";
+        return "PLN";
         break;
     case Currency::CurrencyCode::USD:
-        return str + "USD";
+        return "USD";
         break;
     }
-
 }
