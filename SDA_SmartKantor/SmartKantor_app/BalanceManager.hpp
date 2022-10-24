@@ -10,10 +10,8 @@ class BalanceManager
 	std::map<Currency::CurrencyCode, float> balance;
 
 public:
-	BalanceManager()
-	{
-		readBalance();
-	}
+	BalanceManager();
+	
 
 	// wczytaj dostepne waluty z bazy danych
 	bool readBalance();

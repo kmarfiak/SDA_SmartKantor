@@ -3,36 +3,35 @@
 
 #include "BalanceManager.hpp"
 
-
-
+BalanceManager::BalanceManager()
+{
+    readBalance();
+}
 
 bool BalanceManager::withdraw(Currency::CurrencyCode code, float value)//value jest z klasy User//mozna zmienic nazwe f. na buy?
-{
-    balance[code] -= value;
-    // kompilacja warunkowa do zmiany
-#if 0 
-    if (value <= Currency::CurrencyCode) // trzeba porownac value z mapa
+{  
+    if (value <= 0)
     {
-        return true;
-        std::cout << "Na koncie po transakcji pozostalo: " << Currency::CurrencyCode << "EUR";
-
+        std::cout << "Proba wyplaty kwoty rownej 0 lub ujemnej" << value << code << "Podana kwota powinna byc liczba dodatnia. " << std::endl;
+        return false;
     }
-
+    else if (value > balance[code])
+    {
+        std::cout << "Za duza kwota transakcji" << value << code << " mam jedynie : " << balance[code] << std::endl;
+        return false;
+    }
     else
     {
-        value > Currency::CurrencyCode;
-
-        return false;
-        std::cout << "Za duza kwota transakcji - mamy jedynie: " << Currency::CurrencyCode;
+        balance[code] -= value;
+        std::cout << "Wyplacam " << value << code << ". Zostaje " << balance[code] << code << std::endl;
+        return true;
     }
-#endif
-    return true;
 }
 
 void BalanceManager::deposit(Currency::CurrencyCode code, float depositAmount)//mozna zmienic nazwe f. na buy?
 {
     balance[code] += depositAmount;
-    std::cout << "Saldo konta kantoru po transakcji to: " << balance[code] << "EUR";
+    std::cout << "Po wplacie mam: " << balance[code] << code << std::endl;
 }
 
 bool BalanceManager::readBalance()
