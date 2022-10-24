@@ -1,9 +1,10 @@
 #include <iostream>
 #include <string>
+#include <vector>
 
 #include "Cashier.hpp"
 #include "BalanceManager.hpp"
-#include "TransactionLogger.h"
+#include "TransactionLogger.hpp"
 
 
 
@@ -33,6 +34,12 @@ float Cashier::sell(Currency::CurrencyCode currCode, float amount)
 
     return value;
     
+}
+
+std::vector<std::string> Cashier::getReport()
+{
+    TransactionLogger tlogger;
+    return tlogger.getReport();
 }
 
 std::map<Currency::CurrencyCode, Currency>& Cashier::getRates()

@@ -13,7 +13,7 @@ void DisplayMenu::mainMenu()
 
     SetConsoleTitleA("SmartKantor - wymiana walut");
     ConGui::ApplyConsoleStyle(20, L"Consolas");
-    ConGui::SetWindow(100, 40, false, true);
+    ConGui::SetWindow(140, 40, false, true);
     ConGui::Init();
     ConGui::SetCursorState(false);
 
@@ -49,6 +49,9 @@ void DisplayMenu::mainMenu()
         case Menu::MenuBalance:
             subMenuBalance(lastDisplayedMessage, menu);
             break;
+        case Menu::MenuReport:
+            reportsMenu(lastDisplayedMessage, menu);
+            break;
         case Menu::ExitOption:
             exit = true;
             break;
@@ -59,10 +62,11 @@ void DisplayMenu::mainMenu()
 
 void DisplayMenu::initialMenu(std::string& lastDisplayedMessage, Menu& menu)
 {
+    std::string textToDisplay = "Witamy w SmartKantor";
     ConGui::Style::BoxStyle = ConGui::Style::BoxStyle_Combo;
     ConGui::Box(0, 0, ConGui::ConsoleWidth - 1, ConGui::ConsoleHeight - 1);
     ConGui::Style::BoxStyle = ConGui::Style::BoxStyle_Default;
-    ConGui::Text(ConGui::ConsoleWidth / 2 - 10, 0, "Witamy w SmartKantor");
+    ConGui::Text((ConGui::ConsoleWidth / 2 - textToDisplay.length() / 2), 0, textToDisplay.c_str());
 
     short int buttonXStartPosition = ConGui::ConsoleWidth / 2 - 13;
     short int buttonXStopPosition = ConGui::ConsoleWidth / 2 + 13;
@@ -79,19 +83,23 @@ void DisplayMenu::initialMenu(std::string& lastDisplayedMessage, Menu& menu)
     {
         menu = Menu::MenuBalance;
     }
-    else if (ConGui::Button("Aktualizuj kursy", buttonXStartPosition, 14, buttonXStopPosition, 16, true))
+    else if (ConGui::Button("Wyswietl aktualny raport", buttonXStartPosition, 14, buttonXStopPosition, 16, true))
+    {
+        menu = Menu::MenuReport;
+    }
+    else if (ConGui::Button("Aktualizuj kursy", buttonXStartPosition, 17, buttonXStopPosition, 19, true))
     {
         lastDisplayedMessage = "Jeszcze nie wspierany";
     }
-    else if (ConGui::Button("Wyswietl aktualne kursy", buttonXStartPosition, 17, buttonXStopPosition, 19, true))
+    else if (ConGui::Button("Wyswietl aktualne kursy", buttonXStartPosition, 20, buttonXStopPosition, 22, true))
     {
         lastDisplayedMessage = "Jeszcze nie wspierany";
     }
-    else if (ConGui::Button("Wyjdz", buttonXStartPosition, 20, buttonXStopPosition, 22, true))
+    else if (ConGui::Button("Wyjdz", buttonXStartPosition, 23, buttonXStopPosition, 25, true))
     {
         menu = Menu::ExitOption;
     }
-    ConGui::Text((ConGui::ConsoleWidth / 2) - (lastDisplayedMessage.length() / 2) - 1, 25, lastDisplayedMessage.c_str());
+    ConGui::Text((ConGui::ConsoleWidth / 2) - (lastDisplayedMessage.length() / 2) - 1, 28, lastDisplayedMessage.c_str());
 }
 
 void DisplayMenu::subMenuBalance(std::string& lastDisplayedMessage, Menu& menuRef)
@@ -110,7 +118,7 @@ void DisplayMenu::subMenuBalance(std::string& lastDisplayedMessage, Menu& menuRe
     ConGui::Style::BoxStyle = ConGui::Style::BoxStyle_Combo;
     ConGui::Box(0, 0, ConGui::ConsoleWidth - 1, ConGui::ConsoleHeight - 1);
     ConGui::Style::BoxStyle = ConGui::Style::BoxStyle_Default;
-    ConGui::Text(ConGui::ConsoleWidth / 2 - 10, 0, textToDisplay.c_str());
+    ConGui::Text((ConGui::ConsoleWidth / 2 - textToDisplay.length() / 2), 0, textToDisplay.c_str());
 
     for (auto element : balanceMap)
     {
@@ -118,6 +126,41 @@ void DisplayMenu::subMenuBalance(std::string& lastDisplayedMessage, Menu& menuRe
 
         ConGui::Box((ConGui::ConsoleWidth / 2) - (currCodeString.length() / 2) -3, (distanceBetweenText -1), (ConGui::ConsoleWidth / 2) + (currCodeString.length() / 2) + 2, (distanceBetweenText + 1));
         ConGui::Text((ConGui::ConsoleWidth / 2) - (currCodeString.length() / 2) - 1, distanceBetweenText, currCodeString.c_str());
+        distanceBetweenText += 3;
+    }
+
+    if (ConGui::Button("Wyjdz", buttonXStartPosition, (distanceBetweenText - 1), buttonXStopPosition, (distanceBetweenText + 1), true))
+    {
+        menuRef = Menu::MainMenu;
+    }
+}
+
+void DisplayMenu::reportsMenu(std::string& lastDisplayedMessage, Menu& menuRef)
+{
+    std::vector<std::string> reportToDisplay;
+
+    reportToDisplay = _cashierRef.getReport();
+
+    
+    short int distanceBetweenText = 5;
+    short int buttonXStartPosition = ConGui::ConsoleWidth / 2 - 13;
+    short int buttonXStopPosition = ConGui::ConsoleWidth / 2 + 13;
+
+    ConGui::Fill(ConGui::Style::MainColor);
+
+    std::string textToDisplay = "Aktualny raport- wszystkie transakcje";
+
+    ConGui::Style::BoxStyle = ConGui::Style::BoxStyle_Combo;
+    ConGui::Box(0, 0, ConGui::ConsoleWidth - 1, ConGui::ConsoleHeight - 1);
+    ConGui::Style::BoxStyle = ConGui::Style::BoxStyle_Default;
+    ConGui::Text((ConGui::ConsoleWidth / 2 - textToDisplay.length() / 2), 0, textToDisplay.c_str());
+
+    for (auto element : reportToDisplay)
+    {
+        std::string reportLine = element;
+
+        ConGui::Box(1, (distanceBetweenText - 1), ConGui::ConsoleWidth - 2, (distanceBetweenText + 1));
+        ConGui::Text(2, distanceBetweenText, reportLine.c_str());
         distanceBetweenText += 3;
     }
 
@@ -136,7 +179,7 @@ void DisplayMenu::subMenu(std::string operationType, Currency::CurrencyCode& cur
     ConGui::Style::BoxStyle = ConGui::Style::BoxStyle_Combo;
     ConGui::Box(0, 0, ConGui::ConsoleWidth - 1, ConGui::ConsoleHeight - 1);
     ConGui::Style::BoxStyle = ConGui::Style::BoxStyle_Default;
-    ConGui::Text(ConGui::ConsoleWidth / 2 - 10, 0, textToDisplay.c_str());
+    ConGui::Text((ConGui::ConsoleWidth / 2 - textToDisplay.length() / 2), 0, textToDisplay.c_str());
 
     std::map<Currency::CurrencyCode, Currency>& ratesMap = _cashierRef.getRates();
 
@@ -166,7 +209,7 @@ void DisplayMenu::subMenuAmount(std::string& amount, Currency::CurrencyCode& cur
     ConGui::Style::BoxStyle = ConGui::Style::BoxStyle_Combo;
     ConGui::Box(0, 0, ConGui::ConsoleWidth - 1, ConGui::ConsoleHeight - 1);
     ConGui::Style::BoxStyle = ConGui::Style::BoxStyle_Default;
-    ConGui::Text(ConGui::ConsoleWidth / 2 - 10, 0, textToDisplay.c_str());
+    ConGui::Text((ConGui::ConsoleWidth / 2 - textToDisplay.length() / 2), 0, textToDisplay.c_str());
 
     ConGui::InputText("Podaj ilosc:", (ConGui::ConsoleWidth / 2) - 18, 3, 26, 144, &amount, true, false);
 

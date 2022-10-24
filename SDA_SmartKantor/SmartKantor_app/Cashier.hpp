@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <string>
+#include <vector>
 
 #include "TempRatesRetriever.hpp"
 #include "Converter.hpp"
@@ -21,6 +22,8 @@ public:
 
 	//kantor sprzedaje walute
 	float sell(Currency::CurrencyCode currCodeSource, float amount);
+
+	std::vector<std::string> getReport();
 
 	std::map<Currency::CurrencyCode, Currency>& getRates();
 
