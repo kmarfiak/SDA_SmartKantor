@@ -41,7 +41,7 @@ bool BalanceManager::readBalance()
     balance[Currency::CurrencyCode::USD] = 5000.00;
     balance[Currency::CurrencyCode::GBP] = 5000.00;
     balance[Currency::CurrencyCode::CHF] = 5000.00;
-    balance[Currency::CurrencyCode::PLN] = 5000.00;
+    balance[Currency::CurrencyCode::PLN] = 20000.00;
     
     return true;
 }
