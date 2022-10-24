@@ -2,7 +2,6 @@
 #include<string>
 //#include "json/json.hpp"
 
-
 class Currency
 {
 	std::string currencyTarget;

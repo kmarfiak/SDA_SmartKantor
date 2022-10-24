@@ -15,6 +15,7 @@ bool BalanceManager::withdraw(Currency::CurrencyCode code, float value)//value j
     {
         return true;
         std::cout << "Na koncie po transakcji pozostalo: " << Currency::CurrencyCode << "EUR";
+
     }
 
     else
