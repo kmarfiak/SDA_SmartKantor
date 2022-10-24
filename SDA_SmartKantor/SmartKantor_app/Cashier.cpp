@@ -15,10 +15,16 @@ float Cashier::buy(Currency::CurrencyCode currCode, float amount)
     // zwieksza nam sie euro w balansie, wyplacamy pln
     float value_pln = converter1.calculateBuy(amount, currCode);
     tlogger.log(currCode, amount, value_pln, "kupno");
-    _balance.deposit(currCode, amount);
-    _balance.withdraw(Currency::CurrencyCode::PLN, value_pln);
 
-    return value_pln;
+    if (_balance.withdraw(Currency::CurrencyCode::PLN, value_pln) == true)
+    {
+        _balance.deposit(currCode, amount);
+        return value_pln;
+    }
+    else
+    {  // za maly balans wiec zwroc 0, transakcja nie doszla do skutku
+        return 0;
+    }
 }
 
 float Cashier::sell(Currency::CurrencyCode currCode, float amount) 
@@ -29,11 +35,16 @@ float Cashier::sell(Currency::CurrencyCode currCode, float amount)
     float value = converter1.calculateSell(amount, currCode);
     tlogger.log(currCode, amount, value, "sprzedaz");
 
-    _balance.deposit(Currency::CurrencyCode::PLN, value);
-    _balance.withdraw(currCode, amount);
-
-    return value;
-    
+    if ((_balance.withdraw(currCode, amount) == true))
+    {
+        _balance.deposit(Currency::CurrencyCode::PLN, value);
+        return value;
+    }
+    else
+    {
+        // za maly balans wiec zwroc 0, transakcja nie doszla do skutku
+        return 0;
+    }
 }
 
 std::vector<std::string> Cashier::getReport()
