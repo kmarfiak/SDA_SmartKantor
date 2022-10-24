@@ -3,29 +3,33 @@
 
 #include "Cashier.hpp"
 #include "BalanceManager.hpp"
+#include "TransactionLogger.h"
 
 
 
-float Cashier::buy(Currency::CurrencyCode currCodeSource, float amount)
+float Cashier::buy(Currency::CurrencyCode currCode, float amount)
 {
+    TransactionLogger tlogger;
     // kupujemy od uzytkownika np. eur
     // zwieksza nam sie euro w balansie, wyplacamy pln
-    float value_pln = converter1.calculateBuy(amount, currCodeSource);
-    
-    _balance.deposit(currCodeSource, amount);
+    float value_pln = converter1.calculateBuy(amount, currCode);
+    tlogger.log(currCode, amount, value_pln, "kupno");
+    _balance.deposit(currCode, amount);
     _balance.withdraw(Currency::CurrencyCode::PLN, value_pln);
 
     return value_pln;
 }
 
-float Cashier::sell(Currency::CurrencyCode currCodeSource, float amount) 
+float Cashier::sell(Currency::CurrencyCode currCode, float amount) 
 {
+    TransactionLogger tlogger;
     // sprzedajemy euro
     // przybywa pln, ubywa euro
-    float value = converter1.calculateSell(amount, currCodeSource);
+    float value = converter1.calculateSell(amount, currCode);
+    tlogger.log(currCode, amount, value, "sprzedaz");
 
     _balance.deposit(Currency::CurrencyCode::PLN, value);
-    _balance.withdraw(currCodeSource, amount);
+    _balance.withdraw(currCode, amount);
 
     return value;
     

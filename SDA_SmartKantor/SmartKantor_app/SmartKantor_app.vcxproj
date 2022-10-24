@@ -146,8 +146,10 @@
     <ClInclude Include="Converter.hpp" />
     <ClInclude Include="Currency.hpp" />
     <ClInclude Include="DisplayMenu.hpp" />
+    <ClInclude Include="FileManager.h" />
     <ClInclude Include="TempRatesRetriever.hpp" />
     <ClInclude Include="Cashier.hpp" />
+    <ClInclude Include="TransactionLogger.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BalanceManager.cpp" />
