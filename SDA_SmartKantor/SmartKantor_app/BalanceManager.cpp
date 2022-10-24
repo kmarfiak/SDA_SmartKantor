@@ -12,18 +12,18 @@ bool BalanceManager::withdraw(Currency::CurrencyCode code, float value)//value j
 {  
     if (value <= 0)
     {
-        std::cout << "Proba wyplaty kwoty rownej 0 lub ujemnej" << value << code << "Podana kwota powinna byc liczba dodatnia. " << std::endl;
+        std::cout << "Proba wyplaty kwoty rownej 0 lub ujemnej " << value << " " << code << "Podana kwota powinna byc liczba dodatnia. " << std::endl;
         return false;
     }
     else if (value > balance[code])
     {
-        std::cout << "Za duza kwota transakcji" << value << code << " mam jedynie : " << balance[code] << std::endl;
+        std::cout << "Za duza kwota transakcji " << value << " " << code << " mam jedynie: " << balance[code] << std::endl;
         return false;
     }
     else
     {
         balance[code] -= value;
-        std::cout << "Wyplacam " << value << code << ". Zostaje " << balance[code] << code << std::endl;
+        std::cout << "Wyplacam " << value << " " << code << ". Zostaje " << balance[code] << " " << code << std::endl;
         return true;
     }
 }
@@ -31,7 +31,7 @@ bool BalanceManager::withdraw(Currency::CurrencyCode code, float value)//value j
 void BalanceManager::deposit(Currency::CurrencyCode code, float depositAmount)//mozna zmienic nazwe f. na buy?
 {
     balance[code] += depositAmount;
-    std::cout << "Po wplacie mam: " << balance[code] << code << std::endl;
+    std::cout << "Po wplacie mam: " << balance[code] << " " << code << std::endl;
 }
 
 bool BalanceManager::readBalance()
