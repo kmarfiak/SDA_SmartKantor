@@ -52,6 +52,9 @@ void DisplayMenu::mainMenu()
         case Menu::MenuReport:
             reportsMenu(lastDisplayedMessage, menu);
             break;
+        case Menu::MenuRates:
+            ratesMenu(lastDisplayedMessage, menu);
+            break;
         case Menu::ExitOption:
             exit = true;
             break;
@@ -93,7 +96,7 @@ void DisplayMenu::initialMenu(std::string& lastDisplayedMessage, Menu& menu)
     }
     else if (ConGui::Button("Wyswietl aktualne kursy", buttonXStartPosition, 20, buttonXStopPosition, 22, true))
     {
-        lastDisplayedMessage = "Jeszcze nie wspierany";
+        menu = Menu::MenuRates;
     }
     else if (ConGui::Button("Wyjdz", buttonXStartPosition, 23, buttonXStopPosition, 25, true))
     {
@@ -161,6 +164,45 @@ void DisplayMenu::reportsMenu(std::string& lastDisplayedMessage, Menu& menuRef)
 
         ConGui::Box(1, (distanceBetweenText - 1), ConGui::ConsoleWidth - 2, (distanceBetweenText + 1));
         ConGui::Text(2, distanceBetweenText, reportLine.c_str());
+        distanceBetweenText += 3;
+    }
+
+    if (ConGui::Button("Wyjdz", buttonXStartPosition, (distanceBetweenText - 1), buttonXStopPosition, (distanceBetweenText + 1), true))
+    {
+        menuRef = Menu::MainMenu;
+    }
+}
+
+void DisplayMenu::ratesMenu(std::string& lastDisplayedMessage, Menu& menuRef)
+{
+    std::map <Currency::CurrencyCode, Currency> ratesMap = _cashierRef.getRates();
+
+    std::string currCodeString = "";
+    short int distanceBetweenText = 5;
+    short int buttonXStartPosition = ConGui::ConsoleWidth / 2 - 13;
+    short int buttonXStopPosition = ConGui::ConsoleWidth / 2 + 13;
+
+    ConGui::Fill(ConGui::Style::MainColor);
+
+    std::string textToDisplay = "Aktualne kursy";
+
+    ConGui::Style::BoxStyle = ConGui::Style::BoxStyle_Combo;
+    ConGui::Box(0, 0, ConGui::ConsoleWidth - 1, ConGui::ConsoleHeight - 1);
+    ConGui::Style::BoxStyle = ConGui::Style::BoxStyle_Default;
+    ConGui::Text((ConGui::ConsoleWidth / 2 - textToDisplay.length() / 2), 0, textToDisplay.c_str());
+
+    std::string ratesInfoDisplay = "Nazwa waluty | Kod waluty | Kupno | Sprzedaz";
+    ConGui::Box((ConGui::ConsoleWidth / 2) - (ratesInfoDisplay.length() / 2) - 3, (distanceBetweenText - 1), (ConGui::ConsoleWidth / 2) + (ratesInfoDisplay.length() / 2) + 2, (distanceBetweenText + 1));
+    ConGui::Text((ConGui::ConsoleWidth / 2) - (ratesInfoDisplay.length() / 2) - 1, distanceBetweenText, ratesInfoDisplay.c_str());
+    distanceBetweenText += 3;
+
+    for (auto element : ratesMap)
+    {
+        std::string currCodeString = element.second.getCurrencyTarget() + " | " + changeEnumToString(element.first)
+            + " | " + std::to_string(element.second.getBuyPrice()) + " | " + std::to_string(element.second.getSellPrice());
+
+        ConGui::Box((ConGui::ConsoleWidth / 2) - (currCodeString.length() / 2) - 3, (distanceBetweenText - 1), (ConGui::ConsoleWidth / 2) + (currCodeString.length() / 2) + 2, (distanceBetweenText + 1));
+        ConGui::Text((ConGui::ConsoleWidth / 2) - (currCodeString.length() / 2) - 1, distanceBetweenText, currCodeString.c_str());
         distanceBetweenText += 3;
     }
 

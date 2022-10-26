@@ -37,6 +37,10 @@ std::string Currency::getCurrencySource()
 {
 	return currencySource;
 }
+std::string Currency::getCurrencyTarget()
+{
+    return currencyTarget;
+}
 std::string Currency::getCurrencyCode()
 {
 	return codeName;
