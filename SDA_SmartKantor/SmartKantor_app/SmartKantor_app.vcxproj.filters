@@ -39,6 +39,15 @@
     <ClInclude Include="TransactionLogger.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\curl\curl.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\json\json.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\tabulate\tabulate.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Currency.cpp">

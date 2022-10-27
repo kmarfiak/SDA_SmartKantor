@@ -121,8 +121,8 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\ME\SDA&amp;Ericsson\projekty\CPP_Programowanie\Projekt_końcowy\SDA_SmartKantor\SDA_SmartKantor\library;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>libcurl.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -142,6 +142,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\curl\curl.h" />
+    <ClInclude Include="..\json\json.hpp" />
+    <ClInclude Include="..\tabulate\tabulate.hpp" />
     <ClInclude Include="BalanceManager.hpp" />
     <ClInclude Include="Converter.hpp" />
     <ClInclude Include="Currency.hpp" />

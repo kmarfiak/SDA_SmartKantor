@@ -14,7 +14,7 @@ public:
 	Currency();
 	enum class CurrencyCode
 	{
-		EUR, USD, GBP, CHF, PLN
+		EUR, USD, GBP, CHF, PLN, HUF
 	};
 	float getBuyPrice();
 	void setBuyPrice(float newBuyPrice);
@@ -32,3 +32,5 @@ std::ostream& operator<< (std::ostream& os, Currency::CurrencyCode currCode);
 std::string operator+ (std::string str, Currency::CurrencyCode currCode);
 
 std::string changeEnumToString(Currency::CurrencyCode currCode);
+
+Currency::CurrencyCode changeStringToEnum(std::string currCode);

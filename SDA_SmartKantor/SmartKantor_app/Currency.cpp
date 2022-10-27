@@ -2,7 +2,7 @@
 #include <fstream>
 
 #include "Currency.hpp"
-//#include "json/json.hpp"
+#include "json/json.hpp"
 
 
 Currency::Currency(std::string currencyTarget, std::string codeName, float buyPrice, float sellPrice)
@@ -76,6 +76,36 @@ std::string changeEnumToString(Currency::CurrencyCode currCode)
         break;
     case Currency::CurrencyCode::USD:
         return "USD";
+    case Currency::CurrencyCode::HUF:
+        return "HUF";
         break;
+    }
+}
+
+Currency::CurrencyCode changeStringToEnum(std::string currCode)
+{
+    if (currCode == "CHF")
+    {
+        return Currency::CurrencyCode::CHF;
+    }
+    else if (currCode == "EUR")
+    {
+        return Currency::CurrencyCode::EUR;
+    }
+    else if (currCode == "GBP")
+    {
+        return Currency::CurrencyCode::GBP;
+    }
+    else if (currCode == "PLN")
+    {
+        return Currency::CurrencyCode::PLN;
+    }
+    else if (currCode == "USD")
+    {
+        return Currency::CurrencyCode::USD;
+    }
+    else if (currCode == "HUF")
+    {
+        return Currency::CurrencyCode::HUF;
     }
 }
