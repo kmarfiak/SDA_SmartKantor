@@ -4,7 +4,6 @@
 #include "Currency.hpp"
 //#include "json/json.hpp"
 
-
 Currency::Currency(std::string currencyTarget, std::string codeName, float buyPrice, float sellPrice)
 {
 	this->currencyTarget = currencyTarget;
@@ -158,6 +157,10 @@ Currency::CurrencyCode changeStringToEnum(std::string currCode)
         return Currency::CurrencyCode::NOK;
     }
     else if (currCode == "SEK")
+    {
+        return Currency::CurrencyCode::SEK;
+    }
+    else if (currCode == "XDR")
     {
         return Currency::CurrencyCode::SEK;
     }
