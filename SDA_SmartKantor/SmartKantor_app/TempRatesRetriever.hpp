@@ -21,8 +21,16 @@ public:
 
 	}
 
-	  std::map<Currency::CurrencyCode, Currency>& getRates() {
-		  return rates;
-	  }
+	std::map<Currency::CurrencyCode, Currency>& getRates() {
+		return rates;
+	}
 
+	void retrieve()
+	{
+		Currency huf("forint", "HUF", 1.82, 2.91);
+		Currency jpy("jen japonski", "JPY", 2.99, 2.00);
+
+		rates[Currency::CurrencyCode::HUF] = huf;
+		rates[Currency::CurrencyCode::JPY] = jpy;
+	}
 };
