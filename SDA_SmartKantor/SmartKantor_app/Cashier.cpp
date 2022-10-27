@@ -14,10 +14,10 @@ float Cashier::buy(Currency::CurrencyCode currCode, float amount)
     // kupujemy od uzytkownika np. eur
     // zwieksza nam sie euro w balansie, wyplacamy pln
     float value_pln = converter1.calculateBuy(amount, currCode);
-    tlogger.log(currCode, amount, value_pln, "kupno");
-
+   
     if (_balance.withdraw(Currency::CurrencyCode::PLN, value_pln) == true)
     {
+        tlogger.log(currCode, amount, value_pln, "kupno"); // przenioslam loggera tutaj zeby logowal transakcje tylko gdy sie udadza 
         _balance.deposit(currCode, amount);
         return value_pln;
     }
@@ -33,10 +33,10 @@ float Cashier::sell(Currency::CurrencyCode currCode, float amount)
     // sprzedajemy euro
     // przybywa pln, ubywa euro
     float value = converter1.calculateSell(amount, currCode);
-    tlogger.log(currCode, amount, value, "sprzedaz");
 
     if ((_balance.withdraw(currCode, amount) == true))
     {
+        tlogger.log(currCode, amount, value, "sprzedaz");
         _balance.deposit(Currency::CurrencyCode::PLN, value);
         return value;
     }

@@ -244,9 +244,13 @@ void DisplayMenu::subMenuAmount(std::string& amount, Currency::CurrencyCode& cur
                 }
             }
         }
-        catch(std::invalid_argument)
+        catch(std::invalid_argument&)
         {
             lastDisplayedMessage = "Wprowadzono nieprawidlowa wartosc. Prosze podac kwote do wymiany.";
+        }
+        catch (std::out_of_range& exception)
+        {
+            lastDisplayedMessage = exception.what();
         }
         amount = "";
         menuRef = Menu::MainMenu;
