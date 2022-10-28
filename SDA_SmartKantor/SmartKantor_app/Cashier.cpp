@@ -63,5 +63,10 @@ std::map<Currency::CurrencyCode, float>& Cashier::getBalance()
     return _balance.getBalance();
 }
 
+void Cashier::updateRates()
+{
+    _tempRates.retrieve();
+}
+
 
  

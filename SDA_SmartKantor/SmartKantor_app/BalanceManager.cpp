@@ -25,10 +25,18 @@ void BalanceManager::deposit(Currency::CurrencyCode code, float depositAmount)//
 bool BalanceManager::readBalance()
 {
     // TODO: wczytywac dane z pliku JSON?
-    balance[Currency::CurrencyCode::EUR] = 5000.00;
     balance[Currency::CurrencyCode::USD] = 5000.00;
-    balance[Currency::CurrencyCode::GBP] = 5000.00;
+    balance[Currency::CurrencyCode::AUD] = 5000.00;
+    balance[Currency::CurrencyCode::CAD] = 5000.00;
+    balance[Currency::CurrencyCode::EUR] = 5000.00;
+    balance[Currency::CurrencyCode::HUF] = 5000.00;
     balance[Currency::CurrencyCode::CHF] = 5000.00;
+    balance[Currency::CurrencyCode::GBP] = 5000.00;
+    balance[Currency::CurrencyCode::JPY] = 5000.00;
+    balance[Currency::CurrencyCode::CZK] = 5000.00;
+    balance[Currency::CurrencyCode::DKK] = 5000.00;
+    balance[Currency::CurrencyCode::NOK] = 5000.00;
+    balance[Currency::CurrencyCode::SEK] = 5000.00;
     balance[Currency::CurrencyCode::PLN] = 20000.00;
     return true;
 }

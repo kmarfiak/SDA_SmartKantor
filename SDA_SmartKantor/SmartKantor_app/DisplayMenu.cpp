@@ -13,7 +13,7 @@ void DisplayMenu::mainMenu()
 
     SetConsoleTitleA("SmartKantor - wymiana walut");
     ConGui::ApplyConsoleStyle(20, L"Consolas");
-    ConGui::SetWindow(140, 40, false, true);
+    ConGui::SetWindow(140, 60, false, true);
     ConGui::Init();
     ConGui::SetCursorState(false);
 
@@ -92,7 +92,7 @@ void DisplayMenu::initialMenu(std::string& lastDisplayedMessage, Menu& menu)
     }
     else if (ConGui::Button("Aktualizuj kursy", buttonXStartPosition, 17, buttonXStopPosition, 19, true))
     {
-        lastDisplayedMessage = "Jeszcze nie wspierany";
+        _cashierRef.updateRates();
     }
     else if (ConGui::Button("Wyswietl aktualne kursy", buttonXStartPosition, 20, buttonXStopPosition, 22, true))
     {
@@ -236,7 +236,7 @@ void DisplayMenu::subMenu(std::string operationType, Currency::CurrencyCode& cur
         distanceBetweenButtons += 3;
     }
 
-    if (ConGui::Button("Wyjdz", buttonXStartPosition, 17, buttonXStopPosition, 19, true))
+    if (ConGui::Button("Wyjdz", buttonXStartPosition, distanceBetweenButtons, buttonXStopPosition, distanceBetweenButtons + 2, true))
     {
         menuRef = Menu::MainMenu;
     }

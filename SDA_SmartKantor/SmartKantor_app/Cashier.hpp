@@ -29,4 +29,5 @@ public:
 
 	std::map<Currency::CurrencyCode, float>& getBalance();
 
+	void updateRates();
 };
