@@ -13,23 +13,9 @@ class Converter
 
 public:
 
-	float calculateBuy(float amount, Currency::CurrencyCode currCodeSource)
-	{
-		std::map<Currency::CurrencyCode, Currency> rates = tempRatesRetriever.getRates();
-		float result = amount * rates[currCodeSource].getBuyPrice();
-		float resultMargin = result + (result * margin);
-		float resultMarginF = ceil(resultMargin * 100.0) / 100.0;
-		return resultMarginF;
-	}
-	float calculateSell(float amount, Currency::CurrencyCode currCodeSource)
-	{
-		std::map<Currency::CurrencyCode, Currency> rates = tempRatesRetriever.getRates();
+	float calculateBuy(float amount, Currency::CurrencyCode currCodeSource);
 
-		float result = amount * rates[currCodeSource].getSellPrice();
-		float resultMargin = result - (result * margin);
-		float resultMarginF = ceil(resultMargin * 100.0) / 100.0;
-		return resultMarginF;
-	}
+	float calculateSell(float amount, Currency::CurrencyCode currCodeSource);
 
 };
 
