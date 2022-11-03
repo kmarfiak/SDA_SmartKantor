@@ -32,10 +32,10 @@ class TempRatesRetriever
 public:
 	TempRatesRetriever()
 	{
-		Currency eur("euro", "EUR", 4.82, 4.91);
-		Currency usd("dolar", "USD", 4.99, 5.00);
-		Currency gbp("funt", "GBP", 5.53, 5.64);
-		Currency chf("frank", "CHF", 4.91, 5.01);
+		Currency eur("euro", "EUR", 4.82f, 4.91f);
+		Currency usd("dolar", "USD", 4.99f, 5.00f);
+		Currency gbp("funt", "GBP", 5.53f, 5.64f);
+		Currency chf("frank", "CHF", 4.91f, 5.01f);
 		rates[Currency::CurrencyCode::EUR] = eur;
 		rates[Currency::CurrencyCode::USD] = usd;
 		rates[Currency::CurrencyCode::GBP] = gbp;

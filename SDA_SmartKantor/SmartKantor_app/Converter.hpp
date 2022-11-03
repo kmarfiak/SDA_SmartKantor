@@ -8,15 +8,18 @@
 
 class Converter
 {
-	TempRatesRetriever tempRatesRetriever;
+	TempRatesRetriever& tempRatesRetriever;
 	float margin = 0.02;
 
 public:
+	//konstruktor co przyjmie temp rates
+	Converter(TempRatesRetriever& temp)
+		: tempRatesRetriever(temp){}
 
 	float calculateBuy(float amount, Currency::CurrencyCode currCodeSource)
 	{
 		std::map<Currency::CurrencyCode, Currency> rates = tempRatesRetriever.getRates();
-		float result = amount * rates[currCodeSource].getBuyPrice();
+		float result = amount * (rates[currCodeSource].getBuyPrice());
 		float resultMargin = result + (result * margin);
 		float resultMarginF = ceil(resultMargin * 100.0) / 100.0;
 		return resultMarginF;

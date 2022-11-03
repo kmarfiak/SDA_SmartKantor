@@ -9,13 +9,13 @@
 
 class Cashier
 { 
-	Converter converter1;
+	Converter& converter1;
 	BalanceManager _balance;
 	TempRatesRetriever& _tempRates;
 
 public:
-	Cashier(TempRatesRetriever& temp)
-		: _tempRates(temp) {}
+	Cashier(TempRatesRetriever& temp, Converter& converterRef)
+		: _tempRates(temp), converter1(converterRef) {};
 
 	//kantor kupuje walute
 	float buy(Currency::CurrencyCode currCodeSource, float amount);
