@@ -40,16 +40,15 @@ public:
 		rates[Currency::CurrencyCode::USD] = usd;
 		rates[Currency::CurrencyCode::GBP] = gbp;
 		rates[Currency::CurrencyCode::CHF] = chf;
-
 	}
 
-	std::map<Currency::CurrencyCode, Currency>& getRates() {
+	std::map<Currency::CurrencyCode, Currency>& getRates()
+	{
 		return rates;
 	}
 
 	void retrieve()
 	{
-		//const std::string url("http://date.jsontest.com/");
 		const std::string url("http://api.nbp.pl/api/exchangerates/tables/c/?format=json");
 
 		CURL* curl = curl_easy_init();
@@ -88,16 +87,14 @@ public:
 		if (httpCode == 200)
 		{
 			std::cout << "\nSuccessful response from NBP " << url << std::endl;
-			//std::cout << "HTTP data was:\n" << *httpData.get() << std::endl;
 
-			//std::cout << std::setw(4) << j;
 			std::ofstream o("currency.json");
 			o << std::setw(4) << *httpData.get() << std::endl;
 			json jf = json::parse(*httpData.get());
 
 			for (auto& el : jf.items())
 			{
-				nlohmann::json object = el.value();
+				json object = el.value();
 				std::cout << "\nGetting trading date: " << object.at("tradingDate") << std::endl;
 				std::cout << "Getting publication date: " << object.at("effectiveDate") << std::endl;
 				std::cout << "  " << std::endl;
@@ -105,7 +102,7 @@ public:
 
 			for (auto& el : jf.items())
 			{
-				nlohmann::json object = el.value();
+				json object = el.value();
 
 				for (auto& rate : object.at("rates"))
 				{
