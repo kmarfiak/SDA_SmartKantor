@@ -33,6 +33,5 @@ public:
 		float resultMarginF = ceil(resultMargin * 100.0) / 100.0;
 		return resultMarginF;
 	}
-
 };
 

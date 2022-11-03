@@ -1,8 +1,6 @@
 #include <iostream>
 #include <fstream>
-
 #include "Currency.hpp"
-//#include "json/json.hpp"
 
 Currency::Currency(std::string currencyTarget, std::string codeName, float buyPrice, float sellPrice)
 {
@@ -162,7 +160,7 @@ Currency::CurrencyCode changeStringToEnum(std::string currCode)
     }
     else if (currCode == "XDR")
     {
-        return Currency::CurrencyCode::SEK;
+        return Currency::CurrencyCode::XDR;
     }
     else if (currCode == "PLN")
     {
