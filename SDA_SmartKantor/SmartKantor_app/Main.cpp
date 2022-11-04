@@ -6,9 +6,10 @@
 int main()
 {
 	TempRatesRetriever tempObj;
-	Cashier cashierObj(tempObj);
+	Converter converterObj(tempObj);
+	BalanceManager balanceManagerObj;
+	Cashier cashierObj(tempObj, converterObj, balanceManagerObj);
 	DisplayMenu display(cashierObj);
 
 	display.mainMenu();
-
 }
