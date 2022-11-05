@@ -1,6 +1,8 @@
 #include "FileManager.hpp"
+#include "TempRatesRetriever.hpp"
+#include <string>
 
-void FileManager::manageFiles()
+void FileManager::manageFilesReports()
 {
     std::ofstream myWriteFile("reports.txt");
     myWriteFile.close();
@@ -12,9 +14,8 @@ void FileManager::save(Currency::CurrencyCode currCode, float amount, float valu
 
     myWriteFile.open("reports.txt", std::ios::app);
     if (!myWriteFile) {
-        manageFiles();
+        manageFilesReports();
     }
-
     std::string dtstring = dt;
     std::string
         str = "data transakcji: " + dtstring + "  ilosc: " + std::to_string(amount) +
@@ -43,3 +44,40 @@ std::vector<std::string> FileManager::readReport()
     }
     return reportVector;
 }
+
+void FileManager::manageRatesReports()
+{
+    std::ofstream myWriteFile("rates.txt");
+    myWriteFile.close();
+}
+
+void FileManager::saveRates()
+{
+    std::fstream myWriteFile;
+
+    myWriteFile.open("rates.txt", std::ios::app);
+    if (!myWriteFile) {
+        manageRatesReports();
+    }
+
+    TempRatesRetriever temprates2;
+    temprates2.retrieve();
+
+    std::map<Currency::CurrencyCode, Currency> ratesMapa = temprates2.getRates();
+
+    std::map<Currency::CurrencyCode, Currency>::iterator itr;
+    std::string dtstring = dt;
+    myWriteFile << "Kursy z dnia: " + dtstring << '\n';
+    
+        for (itr = ratesMapa.begin(); itr != ratesMapa.end(); itr++)
+        {
+            myWriteFile << itr->second << '\n';
+        }
+    
+    myWriteFile.close();
+
+
+}
+
+
+

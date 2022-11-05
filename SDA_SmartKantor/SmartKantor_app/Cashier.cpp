@@ -5,6 +5,7 @@
 #include "Cashier.hpp"
 #include "BalanceManager.hpp"
 #include "TransactionLogger.hpp"
+#include "RatesLogger.hpp"
 
 
 
@@ -33,6 +34,8 @@ float Cashier::buy(Currency::CurrencyCode currCode, float amount)
 float Cashier::sell(Currency::CurrencyCode currCode, float amount) 
 {
     TransactionLogger tlogger;
+    RatesLogger rlogger;
+
     // sprzedajemy euro
     // przybywa pln, ubywa euro
     float value = converter1.calculateSell(amount, currCode);
@@ -40,6 +43,7 @@ float Cashier::sell(Currency::CurrencyCode currCode, float amount)
     if ((_balance.withdraw(currCode, amount) == true))
     {
         tlogger.log(currCode, amount, value, "sprzedaz");
+        rlogger.logRates();
         _balance.deposit(Currency::CurrencyCode::PLN, value);
         return value;
     }
