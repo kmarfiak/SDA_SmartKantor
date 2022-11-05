@@ -1,6 +1,8 @@
 
 #include "Converter.hpp"
 
+
+
 float Converter::calculateBuy(float amount, Currency::CurrencyCode currCodeSource)
 {
 	std::map<Currency::CurrencyCode, Currency> rates = tempRatesRetriever.getRates();

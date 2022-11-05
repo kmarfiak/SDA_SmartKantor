@@ -127,7 +127,8 @@ void DisplayMenu::subMenuBalance(std::string& lastDisplayedMessage, Menu& menuRe
     {
         std::string currCodeString = changeEnumToString(element.first) + " | " + std::to_string(element.second);
 
-        ConGui::Box((ConGui::ConsoleWidth / 2) - (currCodeString.length() / 2) -3, (distanceBetweenText -1), (ConGui::ConsoleWidth / 2) + (currCodeString.length() / 2) + 2, (distanceBetweenText + 1));
+        ConGui::Box((ConGui::ConsoleWidth / 2) - (currCodeString.length() / 2) -3, (distanceBetweenText -1), 
+                    (ConGui::ConsoleWidth / 2) + (currCodeString.length() / 2) + 2, (distanceBetweenText + 1));
         ConGui::Text((ConGui::ConsoleWidth / 2) - (currCodeString.length() / 2) - 1, distanceBetweenText, currCodeString.c_str());
         distanceBetweenText += 3;
     }
@@ -201,7 +202,8 @@ void DisplayMenu::ratesMenu(std::string& lastDisplayedMessage, Menu& menuRef)
         std::string currCodeString = element.second.getCurrencyTarget() + " | " + changeEnumToString(element.first)
             + " | " + std::to_string(element.second.getBuyPrice()) + " | " + std::to_string(element.second.getSellPrice());
 
-        ConGui::Box((ConGui::ConsoleWidth / 2) - (currCodeString.length() / 2) - 3, (distanceBetweenText - 1), (ConGui::ConsoleWidth / 2) + (currCodeString.length() / 2) + 2, (distanceBetweenText + 1));
+        ConGui::Box((ConGui::ConsoleWidth / 2) - (currCodeString.length() / 2) - 3, (distanceBetweenText - 1), 
+                    (ConGui::ConsoleWidth / 2) + (currCodeString.length() / 2) + 2, (distanceBetweenText + 1));
         ConGui::Text((ConGui::ConsoleWidth / 2) - (currCodeString.length() / 2) - 1, distanceBetweenText, currCodeString.c_str());
         distanceBetweenText += 3;
     }
@@ -228,7 +230,8 @@ void DisplayMenu::subMenu(std::string operationType, Currency::CurrencyCode& cur
     short int distanceBetweenButtons = 5;
     for (auto element : ratesMap)
     {
-        if (ConGui::Button(element.second.getCurrencyCode().c_str(), buttonXStartPosition, distanceBetweenButtons, buttonXStopPosition, distanceBetweenButtons+2, true))
+        if (ConGui::Button(element.second.getCurrencyCode().c_str(), buttonXStartPosition, distanceBetweenButtons, 
+                           buttonXStopPosition, distanceBetweenButtons+2, true))
         {
             currCode = element.first;
             menuRef = Menu::MenuAmount;
@@ -242,7 +245,8 @@ void DisplayMenu::subMenu(std::string operationType, Currency::CurrencyCode& cur
     }
 }
 
-void DisplayMenu::subMenuAmount(std::string& amount, Currency::CurrencyCode& currCode, std::string& operationType, std::string& lastDisplayedMessage, Menu& menuRef)
+void DisplayMenu::subMenuAmount(std::string& amount, Currency::CurrencyCode& currCode, std::string& operationType, 
+                                std::string& lastDisplayedMessage, Menu& menuRef)
 {
     short int buttonXStartPosition = ConGui::ConsoleWidth / 2 - 13;
     short int buttonXStopPosition = ConGui::ConsoleWidth / 2 + 13;

@@ -1,9 +1,7 @@
 #pragma once
 #include<map>
 #include<string>
-
 #include"Currency.hpp"
-
 
 class BalanceManager
 {
@@ -27,7 +25,6 @@ public:
 
 	// old: void deposit(float availableFunds, float value);
 	void deposit(Currency::CurrencyCode code, float value);
-
 };
 
 

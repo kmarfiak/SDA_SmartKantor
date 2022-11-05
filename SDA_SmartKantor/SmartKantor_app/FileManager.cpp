@@ -33,7 +33,8 @@ std::vector<std::string> FileManager::readReport()
     if (!reportFile.is_open()) {
         std::cout << "Nie udalo sie otworzyc pliku" << "reports.txt" << '\n';
     }
-    else {
+    else 
+    {
         // petla w ktorej kazda linijka pliku bedzie odczytywana az getline zwroci false (bedzie koniec pliku)
         for (std::string textLine; std::getline(reportFile, textLine); )
         {
