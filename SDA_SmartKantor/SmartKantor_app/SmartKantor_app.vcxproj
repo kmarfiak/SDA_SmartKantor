@@ -154,6 +154,7 @@
     <ClInclude Include="Currency.hpp" />
     <ClInclude Include="DisplayMenu.hpp" />
     <ClInclude Include="FileManager.hpp" />
+    <ClInclude Include="RatesLogger.hpp" />
     <ClInclude Include="TempRatesRetriever.hpp" />
     <ClInclude Include="Cashier.hpp" />
     <ClInclude Include="TransactionLogger.hpp" />
@@ -166,6 +167,7 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Cashier.cpp" />
     <ClCompile Include="Converter.cpp" />
+    <ClCompile Include="RatesLogger.cpp" />
     <ClCompile Include="TransactionLogger.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
