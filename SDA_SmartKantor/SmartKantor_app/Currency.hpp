@@ -34,4 +34,6 @@ std::string operator+ (std::string str, Currency::CurrencyCode currCode);
 
 std::string changeEnumToString(Currency::CurrencyCode currCode);
 
+std::ostream& operator<< (std::ostream& os, Currency currObj);
+
 Currency::CurrencyCode changeStringToEnum(std::string currCode);

@@ -33,6 +33,7 @@ float Cashier::buy(Currency::CurrencyCode currCode, float amount)
 float Cashier::sell(Currency::CurrencyCode currCode, float amount) 
 {
     TransactionLogger tlogger;
+
     // sprzedajemy euro
     // przybywa pln, ubywa euro
     float value = converter1.calculateSell(amount, currCode);
