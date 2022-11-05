@@ -8,6 +8,9 @@
 
 
 
+Cashier::Cashier(TempRatesRetriever& temp, Converter& converterRef, BalanceManager& balanceManagerRef)
+    : _tempRates(temp), converter1(converterRef), _balance(balanceManagerRef) {};
+
 float Cashier::buy(Currency::CurrencyCode currCode, float amount)
 {
     TransactionLogger tlogger;
