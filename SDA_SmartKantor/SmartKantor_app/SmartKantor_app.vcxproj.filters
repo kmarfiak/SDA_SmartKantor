@@ -39,6 +39,9 @@
     <ClInclude Include="TransactionLogger.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="RatesLogger.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Currency.cpp">
@@ -63,6 +66,7 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Converter.cpp">
+    <ClCompile Include="RatesLogger.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

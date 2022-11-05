@@ -108,6 +108,12 @@ std::string changeEnumToString(Currency::CurrencyCode currCode)
     }
 }
 
+std::ostream& operator<<(std::ostream& os, Currency currObj)
+{
+    return os << currObj.getCurrencyCode() << " " 
+        << currObj.getCurrencyTarget() << " " << currObj.getBuyPrice() << " " << currObj.getSellPrice();
+}
+
 Currency::CurrencyCode changeStringToEnum(std::string currCode)
 {
     if (currCode == "USD")
