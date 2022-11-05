@@ -34,7 +34,7 @@ float Cashier::buy(Currency::CurrencyCode currCode, float amount)
 float Cashier::sell(Currency::CurrencyCode currCode, float amount) 
 {
     TransactionLogger tlogger;
-    RatesLogger rlogger;
+   // RatesLogger rlogger; do usuniecia
 
     // sprzedajemy euro
     // przybywa pln, ubywa euro
@@ -43,7 +43,7 @@ float Cashier::sell(Currency::CurrencyCode currCode, float amount)
     if ((_balance.withdraw(currCode, amount) == true))
     {
         tlogger.log(currCode, amount, value, "sprzedaz");
-        rlogger.logRates();
+      //  rlogger.logRates(); do usuniecia
         _balance.deposit(Currency::CurrencyCode::PLN, value);
         return value;
     }

@@ -270,7 +270,9 @@ void DisplayMenu::subMenuAmount(std::string& amount, Currency::CurrencyCode& cur
                 if (std::stof(amount) > 0)
                 {
                     float amountToCalcBuy = _cashierRef.buy(currCode, std::stof(amount));
-                    lastDisplayedMessage = "Kupiono " + amount + " " + currCode + " za " + std::to_string(amountToCalcBuy) + " PLN. ";
+                    std::cout << std::to_string(amountToCalcBuy);
+                    lastDisplayedMessage = std::to_string(amountToCalcBuy);
+                    //lastDisplayedMessage = "Kupiono " + amount + " " + currCode + " za " + std::to_string(amountToCalcBuy) + " PLN. ";
                 }
                 else
                 {
