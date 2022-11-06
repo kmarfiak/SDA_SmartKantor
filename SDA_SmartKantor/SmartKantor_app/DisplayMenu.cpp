@@ -235,7 +235,15 @@ void DisplayMenu::ratesMenu(std::string& lastDisplayedMessage, Menu& menuRef)
     ConGui::Text((ConGui::ConsoleWidth / 2 - textToDisplay.length() / 2), 0, textToDisplay.c_str());
 
     // pierwszy wiersz tabeli kursów
-    std::string ratesInfoDisplay = "Nazwa waluty | Kod waluty | Kupno | Sprzedaz";
+    std::string currencyName = fillWithSpaces("Nazwa waluty", 20);
+    std::string currencyCode = fillWithSpaces("Kod waluty", 10);
+    std::string buy = fillWithSpaces("Kupno", 8);
+    std::string sell = fillWithSpaces("Sprzedaz", 8);
+    std::string ratesInfoDisplay =
+        currencyName + " | " +
+        currencyCode + " | " +
+        buy + " | " +
+        sell;
     // ustawienia ramki (box) i tekst w œrodku
     ConGui::Box((ConGui::ConsoleWidth / 2) - (ratesInfoDisplay.length() / 2) - 3, (distanceBetweenText - 1), (ConGui::ConsoleWidth / 2) + (ratesInfoDisplay.length() / 2) + 2, (distanceBetweenText + 1));
     ConGui::Text((ConGui::ConsoleWidth / 2) - (ratesInfoDisplay.length() / 2) - 1, distanceBetweenText, ratesInfoDisplay.c_str());
@@ -255,8 +263,15 @@ void DisplayMenu::ratesMenu(std::string& lastDisplayedMessage, Menu& menuRef)
         std::stringstream ssSellPrice;
         ssSellPrice << std::fixed << std::setprecision(4) << element.second.getSellPrice();
 
-        std::string currCodeString = element.second.getCurrencyTarget() + " | " + changeEnumToString(element.first)
-            + " | " + ssBuyPrice.str() + " | " + ssSellPrice.str();
+        std::string currencyTarget = element.second.getCurrencyTarget();
+        std::string currencyCode = changeEnumToString(element.first);
+        std::string buyPrice = ssBuyPrice.str();
+        std::string sellPrice = ssSellPrice.str();
+
+        std::string currCodeString = fillWithSpaces(currencyTarget, 20) + " | " +
+                                     fillWithSpaces(currencyCode, 10) + " | " +
+                                     fillWithSpaces(buyPrice, 8) + " | " +
+                                     fillWithSpaces(sellPrice, 8);
 
         // j.w ramka i tekst
         ConGui::Box((ConGui::ConsoleWidth / 2) - (currCodeString.length() / 2) - 3, (distanceBetweenText - 1), 
@@ -270,6 +285,17 @@ void DisplayMenu::ratesMenu(std::string& lastDisplayedMessage, Menu& menuRef)
     {
         menuRef = Menu::MainMenu;
     }
+}
+
+// funkcja dopisuje spacje do podanego stringa do uzyskania zadanej d³ugosci
+std::string DisplayMenu::fillWithSpaces(std::string strToFill, int targetWidth)
+{   
+    int targetLength = targetWidth - strToFill.length();
+    for (int i = 0; i < targetLength; ++i)
+    {
+        strToFill += " ";
+    }
+    return strToFill;
 }
 
 // menu kupna lub sprzeda¿y zrobione jako jedno bo oba wygl¹da³y identycznie
