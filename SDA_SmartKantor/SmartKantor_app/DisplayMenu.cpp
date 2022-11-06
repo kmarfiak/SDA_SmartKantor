@@ -15,7 +15,7 @@ void DisplayMenu::mainMenu()
 
     // ustawienia pocz¹tkowe ConGui
     SetConsoleTitleA("SmartKantor - wymiana walut");
-    ConGui::ApplyConsoleStyle(20, L"Consolas");
+    ConGui::ApplyConsoleStyle(14, L"Consolas");
     ConGui::SetWindow(140, 60, false, true);
     ConGui::Init();
     ConGui::SetCursorState(false);
