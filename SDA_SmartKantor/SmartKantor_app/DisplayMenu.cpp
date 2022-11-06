@@ -154,7 +154,9 @@ void DisplayMenu::subMenuBalance(std::string& lastDisplayedMessage, Menu& menuRe
         // do zmiennej pomocniczej currCodeSTring wpychamy kod waluty i iloœæ gotówki
         // kluczem w mapie jest CurrencyCode ktory trzeba zamienic na stringa (changeEnumToStrig),
         // podobnie trzeba zrobiæ z floatem (amount) za pomoca std::to_string
-        std::string currCodeString = changeEnumToString(element.first) + " | " + std::to_string(element.second);
+        std::stringstream ssBalance;
+        ssBalance << std::fixed << std::setprecision(2) << element.second;
+        std::string currCodeString = changeEnumToString(element.first) + " | " + fillWithSpaces(ssBalance.str(), 9);
 
         // box to obramowanie tekstu, ponizej ustawienia tak zeby sie ladnie wyswietla³o
         ConGui::Box((ConGui::ConsoleWidth / 2) - (currCodeString.length() / 2) -3, (distanceBetweenText -1), 
@@ -377,7 +379,7 @@ void DisplayMenu::subMenuAmount(std::string& amount, Currency::CurrencyCode& cur
                 {
                     float amountToCalcBuy = _cashierRef.buy(currCode, std::stof(amount));
                     std::string s = roundFloat(amountToCalcBuy);
-                    lastDisplayedMessage = "Kupiono " + amount + " " + currCode + " za " + s + " PLN. ";
+                    lastDisplayedMessage = "Kupiono " + amount + " " + currCode + " za " + s + " PLN (zawiera 2% marzy).";
                 }
                 else
                 {
@@ -392,7 +394,7 @@ void DisplayMenu::subMenuAmount(std::string& amount, Currency::CurrencyCode& cur
                 {
                     float amountToCalcSell = _cashierRef.sell(currCode, std::stof(amount));
                     std::string s = roundFloat(amountToCalcSell);
-                    lastDisplayedMessage = "Sprzedano " + amount + " " + currCode + " za " + s + " PLN. ";
+                    lastDisplayedMessage = "Sprzedano " + amount + " " + currCode + " za " + s + " PLN (zawiera 2% marzy). ";
                 }
                 else
                 {
