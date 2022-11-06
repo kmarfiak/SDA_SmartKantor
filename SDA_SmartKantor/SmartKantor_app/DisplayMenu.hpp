@@ -32,6 +32,9 @@ private:
     void reportsMenu(std::string& lastDisplayedMessage, Menu& menuRef);
     // ratesMenu wyœwietla aktualne kursy
     void ratesMenu(std::string& lastDisplayedMessage, Menu& menuRef);
+
+    std::string fillWithSpaces(std::string strToFill, int targetWidth);
+
 public:
     // konstruktor parametrowy który tworzy referencje do obiektu Cashier
     DisplayMenu(Cashier& cashier);
