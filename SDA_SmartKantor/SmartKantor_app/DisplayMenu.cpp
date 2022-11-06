@@ -313,6 +313,13 @@ void DisplayMenu::subMenu(std::string operationType, Currency::CurrencyCode& cur
     }
 }
 
+std::string roundFloat(float number)
+{
+    std::stringstream stream;
+    stream << std::fixed << std::setprecision(2) << number;
+    std::string s = stream.str();
+    return s;
+}
 // menu do pobrania iloœci waluty do wymiany
 void DisplayMenu::subMenuAmount(std::string& amount, Currency::CurrencyCode& currCode, std::string& operationType, 
                                 std::string& lastDisplayedMessage, Menu& menuRef)
@@ -343,7 +350,8 @@ void DisplayMenu::subMenuAmount(std::string& amount, Currency::CurrencyCode& cur
                 if (std::stof(amount) > 0)
                 {
                     float amountToCalcBuy = _cashierRef.buy(currCode, std::stof(amount));
-                    lastDisplayedMessage = "Kupiono " + amount + " " + currCode + " za " + std::to_string(amountToCalcBuy) + " PLN. ";
+                    std::string s = roundFloat(amountToCalcBuy);
+                    lastDisplayedMessage = "Kupiono " + amount + " " + currCode + " za " + s + " PLN. ";
                 }
                 else
                 {
@@ -357,7 +365,8 @@ void DisplayMenu::subMenuAmount(std::string& amount, Currency::CurrencyCode& cur
                 if (std::stof(amount) > 0)
                 {
                     float amountToCalcSell = _cashierRef.sell(currCode, std::stof(amount));
-                    lastDisplayedMessage = "Sprzedano " + amount + " " + currCode + " za " + std::to_string(amountToCalcSell) + " PLN. ";
+                    std::string s = roundFloat(amountToCalcSell);
+                    lastDisplayedMessage = "Sprzedano " + amount + " " + currCode + " za " + s + " PLN. ";
                 }
                 else
                 {
