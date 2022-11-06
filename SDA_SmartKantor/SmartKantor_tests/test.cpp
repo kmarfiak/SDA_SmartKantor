@@ -12,7 +12,7 @@ TEST(CalculateBuyTest, InCorrectCalculation)
 {
 	TempRatesRetriever tempObj;
 	Converter convert1(tempObj);
-	EXPECT_FLOAT_EQ(convert1.calculateBuy(10, Currency::CurrencyCode::EUR), 89.169998);
+	EXPECT_NE(convert1.calculateBuy(10, Currency::CurrencyCode::EUR), 50.169998);
 }
 TEST(CalculateSellTest, CorrectCalculation)
 {
@@ -24,7 +24,7 @@ TEST(CalculateSellTest, InCorrectCalculation)
 {
 	TempRatesRetriever tempObj;
 	Converter convert1(tempObj);
-	EXPECT_EQ(convert1.calculateSell(10, Currency::CurrencyCode::EUR), 67.093212);
+	EXPECT_NE(convert1.calculateSell(10, Currency::CurrencyCode::EUR), 67.093212);
 }
 TEST(CalculateBuyTest, CalculationAmount0)
 {
