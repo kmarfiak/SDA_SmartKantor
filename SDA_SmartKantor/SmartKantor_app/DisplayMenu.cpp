@@ -1,6 +1,7 @@
 #include "DisplayMenu.hpp"
 #include "ConGui/ConGui.h"
 #include "Cashier.hpp"
+#include <sstream>
 
 // definicja konstruktora która przyjmuje referencje do obiektu cashier i przekazuje j¹ do pola klasy
 DisplayMenu::DisplayMenu(Cashier& cashier)
@@ -246,10 +247,16 @@ void DisplayMenu::ratesMenu(std::string& lastDisplayedMessage, Menu& menuRef)
         // do currCodeString wsadzamy poszczególne elementy mapy
         // getCurrencyTarget to nazwa waluty
         // changeEnumToString jest metoda (w Currency.hpp) zamieniajaca enumy (kod waluty) na stringi
-        // BuyPrice jest zamieniana z float na string (std::to_string)
-        // SellPrice jest zamieniana z float na string (std::to_string)
+        // poni¿ej sa zmienne pomocnicze typu stringstream do wyswietlenia tylko 4 miejsc po przecinku
+
+        std::stringstream ssBuyPrice;
+        ssBuyPrice << std::fixed << std::setprecision(4) << element.second.getBuyPrice();
+
+        std::stringstream ssSellPrice;
+        ssSellPrice << std::fixed << std::setprecision(4) << element.second.getSellPrice();
+
         std::string currCodeString = element.second.getCurrencyTarget() + " | " + changeEnumToString(element.first)
-            + " | " + std::to_string(element.second.getBuyPrice()) + " | " + std::to_string(element.second.getSellPrice());
+            + " | " + ssBuyPrice.str() + " | " + ssSellPrice.str();
 
         // j.w ramka i tekst
         ConGui::Box((ConGui::ConsoleWidth / 2) - (currCodeString.length() / 2) - 3, (distanceBetweenText - 1), 

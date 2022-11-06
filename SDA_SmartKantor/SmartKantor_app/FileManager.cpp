@@ -1,6 +1,7 @@
 #include "FileManager.hpp"
 #include "TempRatesRetriever.hpp"
 #include <string>
+#include <sstream>
 
 void FileManager::manageFilesReports()
 {
@@ -17,9 +18,13 @@ void FileManager::save(Currency::CurrencyCode currCode, float amount, float valu
         manageFilesReports();
     }
     std::string dtstring = dt;
+    std::stringstream ssAmount;
+    ssAmount << std::fixed << std::setprecision(2) << amount;
+    std::stringstream ssValue;
+    ssValue << std::fixed << std::setprecision(2) << value;
     std::string
-        str = "data transakcji: " + dtstring + "  ilosc: " + std::to_string(amount) +
-        "  wartosc: " + std::to_string(value) + "PLN " + "waluta: " + currCode + " typ transakcji : " + type;
+        str = "data transakcji: " + dtstring + "  ilosc: " + ssAmount.str() +
+        "  wartosc: " + ssValue.str() + "PLN " + "waluta: " + currCode + " typ transakcji : " + type;
     str.erase(std::remove(str.begin(), str.end(), '\n'), str.cend());
     myWriteFile << str << '\n';
     myWriteFile.close();
