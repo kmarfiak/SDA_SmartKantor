@@ -377,7 +377,7 @@ void DisplayMenu::subMenuAmount(std::string& amount, Currency::CurrencyCode& cur
                 {
                     float amountToCalcBuy = _cashierRef.buy(currCode, std::stof(amount));
                     std::string s = roundFloat(amountToCalcBuy);
-                    lastDisplayedMessage = "Kupiono " + amount + " " + currCode + " za " + s + " PLN. ";
+                    lastDisplayedMessage = "Kupiono " + amount + " " + currCode + " za " + s + " PLN (zawiera 2% marzy).";
                 }
                 else
                 {
@@ -392,7 +392,7 @@ void DisplayMenu::subMenuAmount(std::string& amount, Currency::CurrencyCode& cur
                 {
                     float amountToCalcSell = _cashierRef.sell(currCode, std::stof(amount));
                     std::string s = roundFloat(amountToCalcSell);
-                    lastDisplayedMessage = "Sprzedano " + amount + " " + currCode + " za " + s + " PLN. ";
+                    lastDisplayedMessage = "Sprzedano " + amount + " " + currCode + " za " + s + " PLN (zawiera 2% marzy). ";
                 }
                 else
                 {
