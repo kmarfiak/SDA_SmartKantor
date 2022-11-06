@@ -1,6 +1,8 @@
 #include <iostream>
 #include <string>
 #include "BalanceManager.hpp"
+#include <sstream>
+#include <iomanip>
 
 BalanceManager::BalanceManager()
 {
@@ -11,7 +13,9 @@ bool BalanceManager::withdraw(Currency::CurrencyCode code, float value)//value j
 {
     if (value > balance[code])
     {
-        throw std::out_of_range("Zbyt duza kwota do wyplaty. W kasie jest tylko " + std::to_string(balance[code]) + " " + changeEnumToString(code));
+        std::stringstream ssValue;
+        ssValue << std::fixed << std::setprecision(2) << balance[code];
+        throw std::out_of_range("Zbyt duza kwota do wyplaty. W kasie jest tylko " + ssValue.str() + " " + changeEnumToString(code));
         return false;
     }
     else
